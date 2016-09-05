@@ -16,7 +16,7 @@ export class PostCreateWidget extends Component {
   };
 
   render() {
-    const cls = `${styles.form} ${(this.props.showAddPost ? styles.appear : '')}`;
+    const cls = `${styles.form} ${styles.appear}`;
     return (
       <div className={cls}>
         <div className={styles['form-content']}>
@@ -33,8 +33,7 @@ export class PostCreateWidget extends Component {
 
 PostCreateWidget.propTypes = {
   addPost: PropTypes.func.isRequired,
-  showAddPost: PropTypes.bool.isRequired,
-  intl: intlShape.isRequired,
+  intl: intlShape.isRequired
 };
 
 export default injectIntl(PostCreateWidget);

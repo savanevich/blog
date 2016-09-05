@@ -7,14 +7,12 @@
 .content {
   width: 100%;
   max-width: 980px;
-  margin: auto;
-  padding: 64px 16px;
   overflow: auto;
 }
 
 .site-title {
   font-weight: 300;
-  font-size: 42px;
+  font-size: 22px;
   float: left;
 }
 
@@ -23,7 +21,7 @@
   color: #FFF;
 }
 
-.add-post-button {
+.header-button {
   display: inline-block;
   color: #FFF;
   background: #03A9F4;
@@ -37,23 +35,28 @@
   background: rgba(0, 0, 0, 0.1);
 }
 
-.language-switcher ul {
+.language-switcher ul, .menu-items ul {
   list-style: none;
   width: 980px;
   margin: auto;
   text-align: right;
 }
 
-.language-switcher li {
+.language-switcher li, .menu-items li {
   display: inline-block;
-  margin: 10px;
+  margin: 10px 0px;
   padding: 5px;
   cursor: pointer;
   color: #fff;
 }
 
-.language-switcher li:first-child {
+.language-switcher li:first-child, .menu-items li:first-child {
   color: rgba(255, 255, 255, 0.7);
+}
+
+.menu-items {
+  float: right;
+  padding-right: 50px;
 }
 
 .selected {

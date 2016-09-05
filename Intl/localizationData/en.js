@@ -1,7 +1,7 @@
 export default {
   locale: 'en',
   messages: {
-    siteTitle: 'MERN Starter Blog',
+    siteTitle: 'Blog',
     addPost: 'Add Post',
     switchLanguage: 'Switch Language',
     twitterMessage: 'We are on Twitter',
@@ -27,5 +27,7 @@ export default {
     	  =1 {has # comment}
     	  other {has # comments}
     	} as of {date}`,
-  },
+    signIn: 'Sign in',
+    signUp: 'Sign up'
+  }
 };
