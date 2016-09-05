@@ -1,60 +1,49 @@
-import callApi from '../../util/apiCaller';
-
-// Export Constants
-export const ADD_POST = 'ADD_POST';
-export const ADD_POSTS = 'ADD_POSTS';
-export const DELETE_POST = 'DELETE_POST';
-
-// Export Actions
-export function addPost(post) {
-  return {
-    type: ADD_POST,
-    post
-  };
-}
-
-export function addPostRequest(post) {
-  return (dispatch) => {
-    return callApi('posts', 'post', {
-      post: {
-        name: post.name,
-        title: post.title,
-        content: post.content
-      }
-    }).then(res => dispatch(addPost(res.post)));
-  };
-}
-
-export function addPosts(posts) {
-  return {
-    type: ADD_POSTS,
-    posts
-  };
-}
+import callApi from '../../helpers/apiCaller';
+import {
+  FETCH_POSTS,
+  FETCH_POST,
+  DELETE_POST,
+  CREATE_POST
+} from './PostTypes';
 
 export function fetchPosts() {
-  return (dispatch) => {
-    return callApi('posts').then(res => {
-      dispatch(addPosts(res.posts));
-    });
+  const request = callApi('posts');
+
+  return {
+    type: FETCH_POSTS,
+    payload: request
   };
 }
 
-export function fetchPost(cuid) {
-  return (dispatch) => {
-    return callApi(`posts/${cuid}`).then(res => dispatch(addPost(res.post)));
+export function fetchPost(id) {
+  const request = callApi(`posts/${id}`);
+
+  return {
+    type: FETCH_POST,
+    payload: request
   };
 }
 
-export function deletePost(cuid) {
+export function createPost(post) {
+  const request = callApi('posts', 'post', {
+    post: {
+      name: post.name,
+      title: post.title,
+      content: post.content
+    }
+  });
+
+  return {
+    type: CREATE_POST,
+    payload: request
+  };
+}
+
+export function deletePost(id) {
+  const request = callApi(`posts/${id}`, 'delete');
+
   return {
     type: DELETE_POST,
-    cuid
-  };
-}
-
-export function deletePostRequest(cuid) {
-  return (dispatch) => {
-    return callApi(`posts/${cuid}`, 'delete').then(() => dispatch(deletePost(cuid)));
+    payload: request
   };
 }

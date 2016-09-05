@@ -1,37 +1,39 @@
-import { ADD_POST, ADD_POSTS, DELETE_POST } from './PostActions';
+const _ = require('lodash');
 
-// Initial State
-const initialState = { data: [] };
+import {
+  FETCH_POSTS,
+  FETCH_POST,
+  DELETE_POST
+} from './PostTypes';
 
-const PostReducer = (state = initialState, action) => {
+const initialState = {
+  allPosts: [],
+  currentPost: null
+};
+
+
+export default function(state = initialState, action) {
+
   switch (action.type) {
-    case ADD_POST :
+    case FETCH_POST:
       return {
-        data: [action.post, ...state.data],
+        ...state,
+        currentPost: action.payload.data.post
       };
 
-    case ADD_POSTS :
+    case FETCH_POSTS:
       return {
-        data: action.posts,
+        ...state,
+        allPosts: action.payload.data.posts
       };
 
     case DELETE_POST :
       return {
-        data: state.data.filter(post => post.cuid !== action.cuid),
+        ...state,
+        allPosts: action.payload.data.posts.filter(post => post.cuid !== action.cuid)
       };
 
     default:
       return state;
   }
-};
-
-/* Selectors */
-
-// Get all posts
-export const getPosts = state => state.posts.data;
-
-// Get post by cuid
-export const getPost = (state, cuid) => state.posts.data.filter(post => post.cuid === cuid)[0];
-
-// Export Reducer
-export default PostReducer;
+}

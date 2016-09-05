@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 
-// Import Components
 import PostListItem from './PostListItem/PostListItem';
 
 function PostList(props) {
@@ -25,9 +24,9 @@ PostList.propTypes = {
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
-    cuid: PropTypes.string.isRequired,
+    cuid: PropTypes.string.isRequired
   })).isRequired,
-  handleDeletePost: PropTypes.func.isRequired,
+  handleDeletePost: PropTypes.func.isRequired
 };
 
 export default PostList;

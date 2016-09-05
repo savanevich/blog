@@ -28,7 +28,7 @@ export function Header(props, context) {
       </div>
       <div className={styles.content}>
         <ul className={styles['menu-items']}>
-          <li><Link className={styles['header-button']} to="/posts/new" ><FormattedMessage id="addPost" /></Link></li>
+          <li><Link className={styles['header-button']} to="/add-post" ><FormattedMessage id="addPost" /></Link></li>
           <li><a className={styles['header-button']} href="#"><FormattedMessage id="signIn" /></a></li>
           <li><a className={styles['header-button']} href="#"><FormattedMessage id="signUp" /></a></li>
         </ul>

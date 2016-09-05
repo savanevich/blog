@@ -1,45 +1,47 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+
 import { FormattedMessage } from 'react-intl';
-
-
 import styles from '../../components/PostListItem/PostListItem.css';
 import { fetchPost } from '../../PostActions';
-import { getPost } from '../../PostReducer';
 
-export function PostDetailPage(props) {
-  return (
-    <div>
-      <Helmet title={props.post.title} />
-      <div className={`${styles['single-post']} ${styles['post-detail']}`}>
-        <h3 className={styles['post-title']}>{props.post.title}</h3>
-        <p className={styles['author-name']}><FormattedMessage id="by" /> {props.post.name}</p>
-        <p className={styles['post-desc']}>{props.post.content}</p>
-      </div>
-    </div>
-  );
+class PostDetailPage extends Component {
+
+  componentWillMount() {
+    this.props.fetchPost(this.props.params.cuid);
+  }
+
+  render() {
+    if (this.props.post) {
+      return (
+        <div>
+          <Helmet title={this.props.post.title}/>
+          <div className={`${styles['single-post']} ${styles['post-detail']}`}>
+            <h3 className={styles['post-title']}>{this.props.post.title}</h3>
+            <p className={styles['author-name']}>
+              <FormattedMessage id="by"/>
+              {this.props.post.name}
+            </p>
+            <p className={styles['post-desc']}>{this.props.post.content}</p>
+          </div>
+        </div>
+      );
+    } else {
+      return (<div>Post doesn't exist</div>);
+    }
+  }
 }
 
-// Actions required to provide data for this component to render in sever side.
-PostDetailPage.need = [params => {
-  return fetchPost(params.cuid);
-}];
-
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
-    post: getPost(state, props.params.cuid)
+    post: state.posts.currentPost
   };
 }
 
-PostDetailPage.propTypes = {
-  post: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    cuid: PropTypes.string.isRequired
-  }).isRequired
-};
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchPost }, dispatch);
+}
 
-export default connect(mapStateToProps)(PostDetailPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetailPage);

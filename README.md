@@ -7,6 +7,7 @@ Requirements:
 -------------
 
 node.js >= 4
+
 mongodb
 
 ## Available Commands

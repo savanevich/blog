@@ -1,52 +1,45 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import PostList from '../../components/PostList';
-
-
-import { addPostRequest, fetchPosts, deletePostRequest } from '../../PostActions';
-import { toggleAddPost } from '../../../App/AppActions';
-import { getPosts } from '../../PostReducer';
+import { fetchPosts, deletePost } from '../../PostActions';
 
 class PostListPage extends Component {
-  componentDidMount() {
-    this.props.dispatch(fetchPosts());
+
+  componentWillMount() {
+    this.props.fetchPosts();
   }
 
   handleDeletePost = post => {
-    if (confirm('Do you want to delete this post')) { // eslint-disable-line
-      this.props.dispatch(deletePostRequest(post));
+    if (confirm('Do you want to delete this post')) {
+      this.props.deletePost(post);
     }
   };
 
   render() {
-    return (
-      <div>
-        <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
-      </div>
-    );
+    if (this.props.posts) {
+      return (
+        <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts}/>
+      );
+    } else {
+      return <div>Loading</div>;
+    }
   }
 }
 
-PostListPage.need = [() => { return fetchPosts(); }];
-
 function mapStateToProps(state) {
   return {
-    posts: getPosts(state)
+    posts: state.posts.allPosts
   };
 }
 
-PostListPage.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired
-  })).isRequired,
-  dispatch: PropTypes.func.isRequired
-};
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchPosts, deletePost }, dispatch);
+}
 
 PostListPage.contextTypes = {
   router: React.PropTypes.object
 };
 
-export default connect(mapStateToProps)(PostListPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PostListPage);
