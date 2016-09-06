@@ -4,13 +4,13 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux';
 
-import { addPostRequest } from '../../PostActions';
+import { createPost } from '../../PostActions';
 
 import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
 
 class PostsNewPage extends Component {
   handleAddPost = (name, title, content) => {
-    this.props.dispatch(addPostRequest({ name, title, content }));
+    this.props.dispatch(createPost({ name, title, content }));
   };
 
   render() {
