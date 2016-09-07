@@ -25,7 +25,7 @@ export function fetchPost(id) {
 }
 
 export function createPost(post) {
-  const request = callApi('posts', 'post', {
+  const request = callApi('posts', 'POST', {
     post: {
       name: post.name,
       title: post.title,
@@ -40,7 +40,7 @@ export function createPost(post) {
 }
 
 export function deletePost(id) {
-  const request = callApi(`posts/${id}`, 'delete');
+  const request = callApi(`posts/${id}`, 'DELETE');
 
   return {
     type: DELETE_POST,

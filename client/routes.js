@@ -11,9 +11,10 @@ if (typeof require.ensure !== 'function') {
 // Workaround for async react routes to work with react-hot-reloader till
 if (process.env.NODE_ENV !== 'production') {
   // Require async routes only in development for react-hot-reloader to work.
-  require('./modules/Post/pages/PostListPage/PostListPage');
-  require('./modules/Post/pages/PostDetailPage/PostDetailPage');
-  require('./modules/Post/pages/PostNewPage/PostNewPage');
+  require('./modules/Post/containers/PostListPage/PostListPage');
+  require('./modules/Post/containers/PostDetailPage/PostDetailPage');
+  require('./modules/Post/containers/PostNewPage/PostNewPage');
+  require('./modules/Auth/containers/SignInContainer/SignInContainer');
 }
 
 // react-router setup with code-splitting
@@ -23,7 +24,7 @@ export default (
     <IndexRoute
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Post/pages/PostListPage/PostListPage').default);
+          cb(null, require('./modules/Post/containers/PostListPage/PostListPage').default);
         });
       }}
     />
@@ -31,7 +32,7 @@ export default (
       path="/posts/:cuid"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Post/pages/PostDetailPage/PostDetailPage').default);
+          cb(null, require('./modules/Post/containers/PostDetailPage/PostDetailPage').default);
         });
       }}
     />
@@ -39,7 +40,15 @@ export default (
       path="/add-post"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Post/pages/PostNewPage/PostNewPage').default);
+          cb(null, require('./modules/Post/containers/PostNewPage/PostNewPage').default);
+        });
+      }}
+    />
+    <Route
+      path="/signin"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Auth/containers/SignInContainer/SignInContainer').default);
         });
       }}
     />

@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import PostList from '../../components/PostList';
+import PostList from '../../components/PostList/PostList';
 import { fetchPosts, deletePost } from '../../PostActions';
 
 class PostListPage extends Component {
