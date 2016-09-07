@@ -5,15 +5,16 @@ import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import * as actions from '../../AuthActions';
 import forms from './../../../../styles/forms.css';
 
-class SignIn extends Component {
+class SignUp extends Component {
 
   handleFormSubmit = () => {
     const emailRef = this.refs.email;
     const passwordRef = this.refs.password;
+    const confirmPasswordRef = this.refs.password2;
 
     if (emailRef.value && passwordRef.value) {
-      this.props.signIn(emailRef.value, passwordRef.value);
-      emailRef.value = passwordRef.value = '';
+      this.props.signUp(emailRef.value, passwordRef.value);
+      emailRef.value = passwordRef.value = confirmPasswordRef.value = '';
     }
   };
 
@@ -24,7 +25,7 @@ class SignIn extends Component {
         <form className={ forms['form-content'] }>
           <h2
             className={ forms['form-title'] }>
-            <FormattedMessage id="signInForm" />
+            <FormattedMessage id="signUpForm" />
           </h2>
           <input
             placeholder={ this.props.intl.messages.emailField }
@@ -36,6 +37,11 @@ class SignIn extends Component {
             type="password"
             className={ forms['form-field'] }
             ref="password" />
+          <input
+            placeholder={ this.props.intl.messages.confirmPasswordField }
+            type="password"
+            className={ forms['form-field'] }
+            ref="password2" />
           <a
             className={ forms['post-submit-button'] }
             action="submit"
@@ -48,4 +54,4 @@ class SignIn extends Component {
   }
 }
 
-export default injectIntl(SignIn);
+export default injectIntl(SignUp);

@@ -5,7 +5,7 @@ import IntlWrapper from './modules/Intl/IntlWrapper';
 
 import routes from './routes';
 
-require('./main.css');
+require('./styles/main.css');
 
 export default function App(props) {
   return (
