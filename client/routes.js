@@ -16,6 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/Post/containers/PostNewPage/PostNewPage');
   require('./modules/Auth/containers/SignInContainer/SignInContainer');
   require('./modules/Auth/containers/SignUpContainer/SignUpContainer');
+  require('./modules/Auth/components/SignOut/SignOut');
 }
 
 // react-router setup with code-splitting
@@ -58,6 +59,14 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Auth/containers/SignUpContainer/SignUpContainer').default);
+        });
+      }}
+    />
+    <Route
+      path="/signout"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Auth/components/SignOut/SignOut').default);
         });
       }}
     />

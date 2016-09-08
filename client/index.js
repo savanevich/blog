@@ -3,9 +3,16 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './App';
 import { configureStore } from './store';
+import { AUTH_USER } from './modules/Auth/AuthTypes';
 
 const store = configureStore(window.__INITIAL_STATE__);
 const mountApp = document.getElementById('root');
+
+// make user authenticated if he stores token in browser
+const token = localStorage.getItem('token');
+if (token) {
+  store.dispatch({ type: AUTH_USER });
+}
 
 render(
   <AppContainer>

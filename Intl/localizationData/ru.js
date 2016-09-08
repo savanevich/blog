@@ -5,6 +5,7 @@ export default {
     addPost: 'Добавить запись',
     switchLanguage: 'Поменять язык',
     githubMessage: 'Гитхаб аккаунт: ',
+    signOut: 'Выход',
     signInForm: 'Форма авторизации',
     signUpForm: 'Форма регистрации',
     emailField: 'Адрес электронной почты',

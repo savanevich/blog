@@ -4,6 +4,7 @@ export default {
     siteTitle: 'Blog',
     addPost: 'Add Post',
     switchLanguage: 'Switch Language',
+    signOut: 'Sign Out',
     githubMessage: 'Github link: ',
     signInForm: 'Sign In Form',
     signUpForm: 'Sign Up Form',

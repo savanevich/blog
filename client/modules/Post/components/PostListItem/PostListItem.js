@@ -13,7 +13,7 @@ function PostListItem(props) {
         </Link>
       </h3>
       <p className={styles['author-name']}>
-        <FormattedMessage id="by" />
+        <FormattedMessage id="by" />&nbsp;
         {props.post.name}
       </p>
       <p className={styles['post-desc']}>{props.post.content}</p>

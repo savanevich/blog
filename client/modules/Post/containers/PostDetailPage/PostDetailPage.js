@@ -21,8 +21,8 @@ class PostDetailPage extends Component {
           <div className={`${styles['single-post']} ${styles['post-detail']}`}>
             <h3 className={styles['post-title']}>{this.props.post.title}</h3>
             <p className={styles['author-name']}>
-              <FormattedMessage id="by"/>
-              {this.props.post.name}
+              <FormattedMessage id="by"/>&nbsp;
+               {this.props.post.name}
             </p>
             <p className={styles['post-desc']}>{this.props.post.content}</p>
           </div>

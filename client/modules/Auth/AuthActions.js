@@ -42,6 +42,7 @@ export function signUpUser({ email, password }) {
 
 export function signOutUser() {
   localStorage.removeItem('token');
+  browserHistory.push('/');
 
   return {
     type: UNAUTH_USER
