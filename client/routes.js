@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './modules/App/App';
-import { unAuthRoutes, authRoutes } from './helpers/protectedRoutes';
+import { unAuthRoutes, authRoutes } from './modules/Common/Helpers/protectedRoutes';
 
 if (typeof require.ensure !== 'function') {
   require.ensure = function requireModule(deps, callback) {
@@ -12,12 +12,11 @@ if (typeof require.ensure !== 'function') {
 // Workaround for async react routes to work with react-hot-reloader till
 if (process.env.NODE_ENV !== 'production') {
   // Require async routes only in development for react-hot-reloader to work.
-  require('./modules/Post/containers/PostListPage/PostListPage');
-  require('./modules/Post/containers/PostDetailPage/PostDetailPage');
-  require('./modules/Post/containers/PostNewPage/PostNewPage');
+  require('./modules/Post/containers/PostListContainer/PostListContainer');
+  require('./modules/Post/containers/PostDetailContainer/PostDetailContainer');
+  require('./modules/Post/containers/PostNewContainer/PostNewContainer');
   require('./modules/Auth/containers/SignInContainer/SignInContainer');
   require('./modules/Auth/containers/SignUpContainer/SignUpContainer');
-  require('./modules/Auth/components/SignOut/SignOut');
 }
 
 // react-router setup with code-splitting
@@ -27,7 +26,7 @@ export default (
     <IndexRoute
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Post/containers/PostListPage/PostListPage').default);
+          cb(null, require('./modules/Post/containers/PostListContainer/PostListContainer').default);
         });
       }}
     />
@@ -35,7 +34,7 @@ export default (
       path="/posts/:cuid"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Post/containers/PostDetailPage/PostDetailPage').default);
+          cb(null, require('./modules/Post/containers/PostDetailContainer/PostDetailContainer').default);
         });
       }}
     />
@@ -44,7 +43,7 @@ export default (
       path="/add-post"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Post/containers/PostNewPage/PostNewPage').default);
+          cb(null, require('./modules/Post/containers/PostNewContainer/PostNewContainer').default);
         });
       }}
     />
@@ -63,14 +62,6 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Auth/containers/SignUpContainer/SignUpContainer').default);
-        });
-      }}
-    />
-    <Route
-      path="/signout"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./modules/Auth/components/SignOut/SignOut').default);
         });
       }}
     />

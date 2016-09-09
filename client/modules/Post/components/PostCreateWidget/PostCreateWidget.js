@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import styles from './PostCreateWidget.css';
 
@@ -20,26 +19,26 @@ export class PostCreateWidget extends Component {
         <div className={styles['form-content']}>
           <h2
             className={styles['form-title']}>
-            <FormattedMessage id="createNewPost" />
+            Create new post
           </h2>
           <input
-            placeholder={this.props.intl.messages.authorName}
+            placeholder="Author's Name"
             className={styles['form-field']}
             ref="name"
           />
           <input
-            placeholder={this.props.intl.messages.postTitle}
+            placeholder="Post Title"
             className={styles['form-field']}
             ref="title" />
           <textarea
-            placeholder={this.props.intl.messages.postContent}
+            placeholder="Post Content"
             className={styles['form-field']}
             ref="content" />
           <a
             className={styles['post-submit-button']}
             href="#"
             onClick={this.addPost}>
-            <FormattedMessage id="submit" />
+            Submit
           </a>
         </div>
       </div>
@@ -47,4 +46,4 @@ export class PostCreateWidget extends Component {
   }
 }
 
-export default injectIntl(PostCreateWidget);
+export default PostCreateWidget;

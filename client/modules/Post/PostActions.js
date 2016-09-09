@@ -1,4 +1,4 @@
-import callApi from '../../helpers/apiCaller';
+import callApi from '../Common/Helpers/apiCaller';
 import {
   FETCH_POSTS,
   FETCH_POST,

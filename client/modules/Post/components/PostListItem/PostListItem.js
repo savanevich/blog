@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
 
 import styles from './PostListItem.css';
 
@@ -13,13 +12,12 @@ function PostListItem(props) {
         </Link>
       </h3>
       <p className={styles['author-name']}>
-        <FormattedMessage id="by" />&nbsp;
-        {props.post.name}
+        By {props.post.name}
       </p>
       <p className={styles['post-desc']}>{props.post.content}</p>
       <p className={styles['post-action']}>
         <a href="#" onClick={props.onDelete}>
-        <FormattedMessage id="deletePost" />
+          Delete Post
         </a>
       </p>
       <hr className={styles.divider} />

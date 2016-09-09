@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
 
 import styles from './Header.css';
 
@@ -12,8 +11,7 @@ export class Header extends Component {
   };
 
   static propTypes = {
-    switchLanguage: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired
+    signOutUser: PropTypes.func.isRequired
   };
 
   renderLinks() {
@@ -22,13 +20,16 @@ export class Header extends Component {
         <ul className={styles['menu-items']}>
           <li>
             <Link className={styles['header-button']} to="/add-post">
-              <FormattedMessage id="addPost"/>
+              Add Post
             </Link>
           </li>
           <li>
-            <Link className={styles['header-button']} to="/signout">
-              <FormattedMessage id="signOut"/>
-            </Link>
+            <a
+              className={styles['header-button']}
+              href="#"
+              onClick={() => this.props.signOutUser()}>
+              Sign Out
+            </a>
           </li>
         </ul>
       );
@@ -37,12 +38,12 @@ export class Header extends Component {
         <ul className={styles['menu-items']}>
           <li>
             <Link className={styles['header-button']} to="/signin">
-              <FormattedMessage id="signIn"/>
+              Sign In
             </Link>
           </li>
           <li>
             <Link className={styles['header-button']} to="/signup">
-              <FormattedMessage id="signUp"/>
+              Sign Up
             </Link>
           </li>
         </ul>
@@ -51,25 +52,14 @@ export class Header extends Component {
   }
 
   render() {
-    const languageNodes = this.props.intl.enabledLanguages.map(
-      lang => <li
-        key={lang}
-        onClick={() => this.props.switchLanguage(lang)}
-        className={lang === this.props.intl.locale ? styles.selected : ''}>
-        {lang}</li>
-    );
 
     return (
       <div className={styles.header}>
         <div className={styles['language-switcher']}>
           <ul>
             <li className={styles['site-title']}>
-              <Link to="/"><FormattedMessage id="siteTitle"/></Link>
+              <Link to="/">Blog</Link>
             </li>
-            <li>
-              <FormattedMessage id="switchLanguage"/>
-            </li>
-            {languageNodes}
           </ul>
         </div>
         <div className={styles.content}>

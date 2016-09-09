@@ -1,4 +1,4 @@
-import callApi from '../../helpers/apiCaller';
+import callApi from '../Common/Helpers/apiCaller';
 import { browserHistory } from 'react-router';
 import {
   AUTH_USER,
@@ -10,7 +10,8 @@ export function signInUser({ email, password }) {
   return function(dispatch) {
     const request = callApi('signin', 'POST', { email, password });
 
-    request.then((response) => {
+    request
+      .then((response) => {
         dispatch({ type: AUTH_USER });
 
         localStorage.setItem('token', response.data.token);

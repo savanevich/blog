@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { bindActionCreators } from 'redux';
 
-import FormField from './../../../Common/Components/FormField';
+import FormInput from './../../../Common/Components/FormInput/FormInput';
 import forms from './../../../../styles/forms.css';
-import { validateEmail } from './../../../../helpers/common';
+import { validateEmail } from '../../../Common/Helpers/common';
 
 class SignUp extends Component {
 
@@ -31,38 +30,38 @@ class SignUp extends Component {
         <form className={ forms['form-content'] }>
           <h2
             className={ forms['form-title'] }>
-            <FormattedMessage id="signUpForm" />
+            Sign Up Form
           </h2>
           <Field
             name="email"
             type="text"
-            placeholder={ this.props.intl.messages.emailField }
+            placeholder="Email"
             className={ forms['form-field'] }
-            component={ FormField } />
+            component={ FormInput } />
           <Field
             name="username"
             type="text"
-            placeholder={ this.props.intl.messages.usernameField }
+            placeholder="Username"
             className={ forms['form-field'] }
-            component={ FormField } />
+            component={ FormInput } />
           <Field
             name="password"
             type="password"
-            placeholder={ this.props.intl.messages.passwordField }
+            placeholder="Password"
             className={ forms['form-field'] }
-            component={ FormField } />
+            component={ FormInput } />
           <Field
             name="password2"
             type="password"
-            placeholder={ this.props.intl.messages.confirmPasswordField }
+            placeholder="Confirm Password"
             className={ forms['form-field'] }
-            component={ FormField } />
+            component={ FormInput } />
           { this.renderAlert() }
           <a
             className={ forms['post-submit-button'] }
             action="submit"
             onClick={ handleSubmit(this.onSubmitForm.bind(this)) }>
-            <FormattedMessage id="submit" />
+            Submit
           </a>
         </form>
       </div>
@@ -103,4 +102,4 @@ function validate(formProps) {
 export default reduxForm({
   form: 'SignUpForm',
   validate
-})(injectIntl(SignUp))
+})(SignUp)
