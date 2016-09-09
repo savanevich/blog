@@ -18,7 +18,7 @@ export function signInUser({ email, password }) {
         browserHistory.push('/');
       })
       .catch(() => {
-        dispatch(authError('Bad login info'));
+        dispatch(authError('User with entered information doesn\'t exist'));
       });
   };
 }

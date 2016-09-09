@@ -6,15 +6,21 @@ import { signInUser } from './../../AuthActions';
 
 class SignInContainer extends Component {
 
-  handleSignIn = (email, password) => {
-    this.props.dispatch(signInUser({ email, password }));
+  handleSignIn = (props) => {
+    this.props.dispatch(signInUser(props));
   };
 
   render() {
     return (
-      <SignIn signIn={ this.handleSignIn }/>
+      <SignIn signIn={ this.handleSignIn } errorMessage={ this.props.errorMessage } />
     );
   }
 }
 
-export default connect(null)(SignInContainer);
+function mapStateToProps(state) {
+  return {
+    errorMessage: state.auth.errorMessage
+  };
+}
+
+export default connect(mapStateToProps)(SignInContainer);
