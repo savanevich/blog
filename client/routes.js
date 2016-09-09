@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './modules/App/App';
+import { unAuthRoutes, authRoutes } from './helpers/protectedRoutes';
 
 if (typeof require.ensure !== 'function') {
   require.ensure = function requireModule(deps, callback) {
@@ -39,6 +40,7 @@ export default (
       }}
     />
     <Route
+      onEnter={authRoutes}
       path="/add-post"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
@@ -47,6 +49,7 @@ export default (
       }}
     />
     <Route
+      onEnter={unAuthRoutes}
       path="/signin"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
@@ -55,6 +58,7 @@ export default (
       }}
     />
     <Route
+      onEnter={unAuthRoutes}
       path="/signup"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
