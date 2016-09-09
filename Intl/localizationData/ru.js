@@ -9,6 +9,7 @@ export default {
     signInForm: 'Форма авторизации',
     signUpForm: 'Форма регистрации',
     emailField: 'Адрес электронной почты',
+    usernameField: 'Имя пользователя',
     passwordField: 'Пароль',
     confirmPasswordField: 'Подтвердите пароль',
     postCategories: 'Категории',

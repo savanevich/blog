@@ -34,11 +34,12 @@ export function signIn(req, res, next) {
  */
 export function signUp(req, res, next) {
   const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
 
-  if (!email || !password) {
+  if (!email || !username || !password) {
     return res.status(422)
-      .send({ error: 'You must provide email and password'});
+      .send({ error: 'You must provide email, username and password'});
   }
 
   User.findOne({ email: email }, (err, existingUser) => {
@@ -47,20 +48,33 @@ export function signUp(req, res, next) {
     }
 
     if (existingUser) {
-      return res.status(422).send({ error: 'Email is in use'});
+      return res.status(422)
+        .send({error: 'Email is in use. Choose another one'});
     }
 
-    const user = new User({
-      email: email,
-      password: password
-    });
-
-    user.save((err) => {
+    User.findOne({username: username}, (err, existingUser) => {
       if (err) {
         return next(err);
       }
 
-      res.json({ token: tokenForUser(user) });
+      if (existingUser) {
+        return res.status(422)
+          .send({error: 'Username is in use. Choose another one'});
+      }
+
+      const user = new User({
+        email: email,
+        username: username,
+        password: password
+      });
+
+      user.save((err) => {
+        if (err) {
+          return next(err);
+        }
+
+        res.json({token: tokenForUser(user)});
+      });
     });
   });
 }

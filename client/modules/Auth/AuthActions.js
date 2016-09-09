@@ -14,7 +14,6 @@ export function signInUser({ email, password }) {
         dispatch({ type: AUTH_USER });
 
         localStorage.setItem('token', response.data.token);
-
         browserHistory.push('/');
       })
       .catch(() => {
@@ -23,19 +22,21 @@ export function signInUser({ email, password }) {
   };
 }
 
-export function signUpUser({ email, password }) {
+export function signUpUser({ email, username, password }) {
   return function(dispatch) {
-    const request = callApi('signup', 'POST', { email, password });
+    const request = callApi('signup', 'POST', { email, username, password });
 
-    request.then((response) => {
+    request
+      .then((response) => {
         dispatch({ type: AUTH_USER });
 
         localStorage.setItem('token', response.data.token);
-
         browserHistory.push('/');
       })
-      .catch((response) => {
-        dispatch(authError('Email is already in use'));
+      .catch(function (error) {
+        if (error.response) {
+          dispatch(authError(error.response.data.error));
+        }
       });
   }
 }

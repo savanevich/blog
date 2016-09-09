@@ -9,6 +9,7 @@ export default {
     signInForm: 'Sign In Form',
     signUpForm: 'Sign Up Form',
     emailField: 'Email',
+    usernameField: 'Username',
     passwordField: 'Password',
     confirmPasswordField: 'Confirm Password',
     by: 'By',

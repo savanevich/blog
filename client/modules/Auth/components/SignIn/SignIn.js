@@ -13,7 +13,7 @@ class SignIn extends Component {
 
   onSubmitForm(props) {
     this.props.signIn(props);
-  };
+  }
 
   renderAlert() {
     if (this.props.errorMessage) {

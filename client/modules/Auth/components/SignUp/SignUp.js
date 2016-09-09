@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form'
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { bindActionCreators } from 'redux';
 
-import * as actions from '../../AuthActions';
+import FormField from './../../../Common/Components/FormField';
 import forms from './../../../../styles/forms.css';
+import { validateEmail } from './../../../../helpers/common';
 
 class SignUp extends Component {
 
-  handleFormSubmit = () => {
-    const emailRef = this.refs.email;
-    const passwordRef = this.refs.password;
-    const confirmPasswordRef = this.refs.password2;
+  onSubmitForm(props) {
+    this.props.signUp(props);
+  }
 
-    if (emailRef.value && passwordRef.value) {
-      this.props.signUp(emailRef.value, passwordRef.value);
-      emailRef.value = passwordRef.value = confirmPasswordRef.value = '';
+  renderAlert() {
+    if (this.props.errorMessage) {
+      return (
+        <div className={ forms['error'] }>
+          <strong>Ooops!</strong> { this.props.errorMessage }
+        </div>
+      );
     }
-  };
+  }
 
   render() {
+    const { handleSubmit } = this.props;
 
     return (
       <div className={ forms['form'] }>
@@ -27,25 +33,35 @@ class SignUp extends Component {
             className={ forms['form-title'] }>
             <FormattedMessage id="signUpForm" />
           </h2>
-          <input
-            placeholder={ this.props.intl.messages.emailField }
+          <Field
+            name="email"
             type="text"
+            placeholder={ this.props.intl.messages.emailField }
             className={ forms['form-field'] }
-            ref="email" />
-          <input
+            component={ FormField } />
+          <Field
+            name="username"
+            type="text"
+            placeholder={ this.props.intl.messages.usernameField }
+            className={ forms['form-field'] }
+            component={ FormField } />
+          <Field
+            name="password"
+            type="password"
             placeholder={ this.props.intl.messages.passwordField }
-            type="password"
             className={ forms['form-field'] }
-            ref="password" />
-          <input
+            component={ FormField } />
+          <Field
+            name="password2"
+            type="password"
             placeholder={ this.props.intl.messages.confirmPasswordField }
-            type="password"
             className={ forms['form-field'] }
-            ref="password2" />
+            component={ FormField } />
+          { this.renderAlert() }
           <a
             className={ forms['post-submit-button'] }
             action="submit"
-            onClick={ this.handleFormSubmit }>
+            onClick={ handleSubmit(this.onSubmitForm.bind(this)) }>
             <FormattedMessage id="submit" />
           </a>
         </form>
@@ -54,4 +70,37 @@ class SignUp extends Component {
   }
 }
 
-export default injectIntl(SignUp);
+function validate(formProps) {
+  const errors = {};
+
+  if (formProps.password && formProps.password.length < 6) {
+    errors.password = 'Password should contain at least 6 symbols';
+  }
+
+  if (formProps.email && !validateEmail(formProps.email)) {
+    errors.email = 'Email address is invalid';
+  }
+
+  if (!formProps.email) {
+    errors.email = 'Please enter an email';
+  }
+
+  if (!formProps.username) {
+    errors.username = 'Please enter a username';
+  }
+
+  if (!formProps.password) {
+    errors.password = 'Please enter a password';
+  }
+
+  if (formProps.password !== formProps.password2) {
+    errors.password2 = 'Entered passwords don\'t match';
+  }
+
+  return errors;
+}
+
+export default reduxForm({
+  form: 'SignUpForm',
+  validate
+})(injectIntl(SignUp))
