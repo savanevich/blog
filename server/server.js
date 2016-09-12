@@ -28,6 +28,24 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import Helmet from 'react-helmet';
 
+// Material-ui setup
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {green100, green500, green700} from 'material-ui/styles/colors';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: green500,
+    primary2Color: green700,
+    primary3Color: green100
+  }
+}, {
+  avatar: {
+    borderColor: null
+  },
+  userAgent: 'all'
+});
+
 // Import required modules
 import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
@@ -119,9 +137,11 @@ app.use((req, res, next) => {
     return fetchComponentData(store, renderProps.components, renderProps.params)
       .then(() => {
         const initialView = renderToString(
-          <Provider store={store}>
-            <RouterContext {...renderProps} />
-          </Provider>
+          <MuiThemeProvider muiTheme={muiTheme}>
+            <Provider store={store}>
+              <RouterContext {...renderProps} />
+            </Provider>
+          </MuiThemeProvider>
         );
         const finalState = store.getState();
 

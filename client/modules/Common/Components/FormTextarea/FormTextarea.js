@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './../../../../styles/forms.css';
 
-function FormField(props) {
+function FormTextArea(props) {
 
   return (
     <div>
-      <input
+      <textarea
         className={props.className}
         type={props.type}
         placeholder={props.placeholder}
@@ -16,4 +16,4 @@ function FormField(props) {
   );
 }
 
-export default FormField;
+export default FormTextArea;
