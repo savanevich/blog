@@ -2,6 +2,10 @@ import Post from '../models/post';
 import cuid from 'cuid';
 import slug from 'limax';
 import sanitizeHtml from 'sanitize-html';
+import fs from 'fs';
+import formidable from 'formidable';
+import path from 'path';
+import uuid from 'node-uuid';
 
 /**
  * Get all posts
@@ -77,4 +81,38 @@ export function deletePost(req, res) {
       res.status(200).end();
     });
   });
+}
+
+/**
+ * Download an image for post
+ *
+ * @param req
+ * @param res
+ * @returns void
+ */
+export function downloadImage(req, res) {
+
+  var form = new formidable.IncomingForm();
+  form.multiples = false;
+  form.uploadDir = path.join(__dirname, '/../images/posts');
+
+  // every time a file has been uploaded successfully,
+  // rename it to it's orignal name
+  form.on('file', function(field, file) {
+    let fileFormat = file.name.split('.').pop();
+
+    // generate unique name for file
+    file.name = uuid.v4() + '.' + fileFormat;
+    fs.rename(file.path, path.join(form.uploadDir, file.name));
+  });
+
+  form.on('error', function(err) {
+    console.log('An error has occured: \n' + err);
+  });
+
+  form.on('end', function() {
+    res.end('success');
+  });
+
+  form.parse(req);
 }

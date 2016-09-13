@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
+import { API_URL } from './../../../Common/Helpers/apiCaller';
 
 import {
   FormInput,
@@ -11,12 +13,25 @@ import {
   FormUpload
 } from './../../../Common/Components/Form';
 import forms from './../../../../styles/forms.css';
+import callApi from './../../../Common/Helpers/apiCaller';
 
 export class PostCreate extends Component {
 
   onSubmitForm(props) {
+    console.log(props);
     this.props.addPost(props);
   }
+
+  handleUpload = (files) => {
+
+    const formData = new FormData();
+    formData.append('uploads[]', files[0], files[0].name);
+
+    axios.post(`${API_URL}/posts/download-image`, formData)
+      .then(function(data){
+        console.log(data);
+      });
+  };
 
   render() {
     const { handleSubmit } = this.props;
@@ -32,6 +47,12 @@ export class PostCreate extends Component {
             className={ forms['form-field'] }
             component={ FormInput } />
           <Field
+            name="postImage"
+            label="Drop image here or click to select image for attaching to post."
+            className={ forms['form-field-upload'] }
+            uploadAction={ this.handleUpload }
+            component={ FormUpload }/>
+          <Field
             name="preview"
             type="text"
             placeholder="Preview"
@@ -45,10 +66,6 @@ export class PostCreate extends Component {
             rows="8"
             className={ forms['form-field'] }
             component={ FormTextarea } />
-          <Field
-            name="postImage"
-            label="Upload post image"
-            component={ FormUpload } />
           <FormAlert errorMessage={ this.props.errorMessage } />
           <FormSubmitButton
             label="Submit"

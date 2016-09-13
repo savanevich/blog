@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
-import ActionAndroid from '../../../../../node_modules/material-ui/svg-icons/action/android';
+
+const Dropzone = require('react-dropzone');
 
 import forms from './../../../../styles/forms.css';
 
@@ -10,18 +10,21 @@ import forms from './../../../../styles/forms.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-function FormUpload(props) {
+class FormUpload extends Component {
 
-  return (
-    <div>
-      <FlatButton
-        label={ props.label }
-        primary={true}
-        labelPosition="before">
-        <input type="file" className={ forms['upload-button'] } />
-      </FlatButton>
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <Dropzone
+          onDrop={ this.props.uploadAction }
+          className={ this.props.className }
+          multiple={ false }
+        >
+          <div>{ this.props.label }</div>
+        </Dropzone>
+      </div>
+    );
+  }
 }
 
 FormUpload.propTypes = {
