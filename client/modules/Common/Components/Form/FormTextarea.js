@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from './../../../../styles/forms.css';
 
-function FormField(props) {
+function FormTextarea(props) {
 
   return (
     <div>
-      <input
+      <textarea
         className={props.className}
+        rows={props.rows}
         type={props.type}
         placeholder={props.placeholder}
         { ...props.input }
@@ -16,4 +17,11 @@ function FormField(props) {
   );
 }
 
-export default FormField;
+FormTextarea.propTypes = {
+  type: React.PropTypes.string.isRequired,
+  placeholder: React.PropTypes.string.isRequired,
+  input: React.PropTypes.object.isRequired,
+  meta: React.PropTypes.object.isRequired
+};
+
+export default FormTextarea;

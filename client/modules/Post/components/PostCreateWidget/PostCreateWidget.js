@@ -2,30 +2,20 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux';
 
-import FormInput from './../../../Common/Components/FormInput/FormInput';
-import FormTextArea from './../../../Common/Components/FormTextarea/FormTextarea';
+import {
+  FormInput,
+  FormAlert,
+  FormHeading,
+  FormSubmitButton,
+  FormTextarea,
+  FormUpload
+} from './../../../Common/Components/Form';
 import forms from './../../../../styles/forms.css';
-
-
-// avoiding bug unknown prop `onTouchTap`
-// of material-ui
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
 export class PostCreate extends Component {
 
   onSubmitForm(props) {
     this.props.addPost(props);
-  }
-
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return (
-        <div className={ forms['error'] }>
-          <strong>Ooops!</strong> { this.props.errorMessage }
-        </div>
-      );
-    }
   }
 
   render() {
@@ -34,35 +24,35 @@ export class PostCreate extends Component {
     return (
       <div className={forms['form']}>
         <div className={forms['form-content']}>
-          <h2
-            className={forms['form-title']}>
-            Create new post
-          </h2>
-          <Field
-            name="username"
-            type="text"
-            placeholder="Author's Name"
-            className={ forms['form-field'] }
-            component={ FormInput } />
+          <FormHeading label="Create new post" />
           <Field
             name="title"
             type="text"
-            placeholder="Post Title"
+            placeholder="Title"
             className={ forms['form-field'] }
             component={ FormInput } />
           <Field
+            name="preview"
+            type="text"
+            placeholder="Preview"
+            rows="3"
+            className={ forms['form-field'] }
+            component={ FormTextarea } />
+          <Field
             name="content"
             type="text"
-            placeholder="Form Content"
+            placeholder="Content"
+            rows="8"
             className={ forms['form-field'] }
-            component={ FormTextArea } />
-          { this.renderAlert() }
-          <a
-            className={forms['post-submit-button']}
-            href="#"
-            onClick={ handleSubmit(this.onSubmitForm.bind(this)) }>
-            Submit
-          </a>
+            component={ FormTextarea } />
+          <Field
+            name="postImage"
+            label="Upload post image"
+            component={ FormUpload } />
+          <FormAlert errorMessage={ this.props.errorMessage } />
+          <FormSubmitButton
+            label="Submit"
+            actionSubmit={ handleSubmit(this.onSubmitForm.bind(this)) } />
         </div>
       </div>
     );
@@ -72,12 +62,12 @@ export class PostCreate extends Component {
 function validate(formProps) {
   const errors = {};
 
-  if (!formProps.username) {
-    errors.username = 'Please enter a username';
-  }
-
   if (!formProps.title) {
     errors.title = 'Please enter a title';
+  }
+
+  if (!formProps.preview) {
+    errors.preview = 'Please enter a preview';
   }
 
   if (!formProps.content) {

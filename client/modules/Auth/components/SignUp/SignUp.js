@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux';
 
-import FormInput from './../../../Common/Components/FormInput/FormInput';
+import {
+  FormInput,
+  FormAlert,
+  FormHeading,
+  FormSubmitButton
+} from './../../../Common/Components/Form';
 import forms from './../../../../styles/forms.css';
 import { validateEmail } from '../../../Common/Helpers/common';
 
@@ -12,26 +17,13 @@ class SignUp extends Component {
     this.props.signUp(props);
   }
 
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return (
-        <div className={ forms['error'] }>
-          <strong>Ooops!</strong> { this.props.errorMessage }
-        </div>
-      );
-    }
-  }
-
   render() {
     const { handleSubmit } = this.props;
 
     return (
       <div className={ forms['form'] }>
         <form className={ forms['form-content'] }>
-          <h2
-            className={ forms['form-title'] }>
-            Sign Up Form
-          </h2>
+          <FormHeading label="Sign Up Form" />
           <Field
             name="email"
             type="text"
@@ -56,13 +48,10 @@ class SignUp extends Component {
             placeholder="Confirm Password"
             className={ forms['form-field'] }
             component={ FormInput } />
-          { this.renderAlert() }
-          <a
-            className={ forms['post-submit-button'] }
-            action="submit"
-            onClick={ handleSubmit(this.onSubmitForm.bind(this)) }>
-            Submit
-          </a>
+          <FormAlert errorMessage={ this.props.errorMessage } />
+          <FormSubmitButton
+            label="Submit"
+            actionSubmit={ handleSubmit(this.onSubmitForm.bind(this)) } />
         </form>
       </div>
     );

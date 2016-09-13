@@ -32,11 +32,7 @@
   color: #212121;
 }
 
-textarea {
-  min-height: 200px;
-}
-
-.submit-button {
+.upload-button {
   cursor: pointer;
   position: absolute;
   top: 0;
@@ -47,7 +43,7 @@ textarea {
   opacity: 0;
 }
 
-.post-submit-button {
+.submit-button {
   display: inline-block;
   padding: 8px 16px;
   font-size: 18px;
@@ -55,6 +51,10 @@ textarea {
   background: #03A9F4;
   text-decoration: none;
   border-radius: 4px;
+}
+
+.form-buttons {
+  margin-top: 20px;
 }
 
 .error {
