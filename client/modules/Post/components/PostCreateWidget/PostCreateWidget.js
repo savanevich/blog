@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import axios from 'axios';
 import { Field, reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
 import { API_URL } from './../../../Common/Helpers/apiCaller';
 
 import {
@@ -13,7 +13,6 @@ import {
   FormUpload
 } from './../../../Common/Components/Form';
 import forms from './../../../../styles/forms.css';
-import callApi from './../../../Common/Helpers/apiCaller';
 
 export class PostCreate extends Component {
 
@@ -50,7 +49,6 @@ export class PostCreate extends Component {
             name="postImage"
             label="Drop image here or click to select image for attaching to post."
             className={ forms['form-field-upload'] }
-            uploadAction={ this.handleUpload }
             component={ FormUpload }/>
           <Field
             name="preview"

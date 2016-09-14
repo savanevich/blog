@@ -1,4 +1,5 @@
-import callApi from '../Common/Helpers/apiCaller';
+import axios from 'axios';
+import callApi, { API_URL } from '../Common/Helpers/apiCaller';
 import {
   FETCH_POSTS,
   FETCH_POST,
@@ -24,14 +25,8 @@ export function fetchPost(id) {
   };
 }
 
-export function createPost(post) {
-  const request = callApi('posts', 'POST', {
-    post: {
-      name: post.name,
-      title: post.title,
-      content: post.content
-    }
-  });
+export function createPost(formData) {
+  const request = axios.post(`${API_URL}/posts`, formData);
 
   return {
     type: CREATE_POST,

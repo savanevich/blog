@@ -29,25 +29,80 @@ export function getPosts(req, res) {
  * @returns void
  */
 export function addPost(req, res) {
-  if (!req.body.post.name || !req.body.post.title || !req.body.post.content) {
-    res.status(403).end();
-  }
 
-  const newPost = new Post(req.body.post);
+  var form = new formidable.IncomingForm();
+  const fields = [];
+  form.multiples = false;
+  form.uploadDir = path.join(__dirname, '/../images/posts');
 
-  // Let's sanitize inputs
-  newPost.title = sanitizeHtml(newPost.title);
-  newPost.name = sanitizeHtml(newPost.name);
-  newPost.content = sanitizeHtml(newPost.content);
 
-  newPost.slug = slug(newPost.title.toLowerCase(), { lowercase: true });
-  newPost.cuid = cuid();
-  newPost.save((err, saved) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ post: saved });
+  //console.log(form);
+  form.on('field', function(field, value) {
+    //console.log(field, value);
+    fields.push([field, value]);
   });
+
+  // every time a file has been uploaded successfully,
+  // rename it to it's orignal name
+  form.on('file', function(field, file) {
+    let fileFormat = file.name.split('.').pop();
+
+    // generate unique name for file
+    file.name = uuid.v4() + '.' + fileFormat;
+    fs.rename(file.path, path.join(form.uploadDir, file.name));
+  });
+
+  form.on('error', function(err) {
+    console.log('An error has occured: \n' + err);
+  });
+
+  form.on('end', function() {
+    //res.end('success');
+    console.log('fields');
+    console.log(fields);
+    var decoded = jwt.decode(token, secret);
+
+    if (!fields.title || !fields.preview || !fields.content) {
+      res.status(403).end();
+    }
+
+    const newPost = new Post();
+
+    // Let's sanitize inputs
+    newPost.title = sanitizeHtml(fields.title);
+    newPost.name = sanitizeHtml(fields.preview);
+    newPost.content = sanitizeHtml(fields.content);
+
+    newPost.cuid = cuid();
+    newPost.save((err, saved) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+      res.json({ post: saved });
+    });
+  });
+
+  form.parse(req);
+
+  //if (!req.body.post.name || !req.body.post.title || !req.body.post.content) {
+  //  res.status(403).end();
+  //}
+  //
+  //const newPost = new Post(req.body.post);
+  //
+  //// Let's sanitize inputs
+  //newPost.title = sanitizeHtml(newPost.title);
+  //newPost.name = sanitizeHtml(newPost.name);
+  //newPost.content = sanitizeHtml(newPost.content);
+  //
+  //newPost.slug = slug(newPost.title.toLowerCase(), { lowercase: true });
+  //newPost.cuid = cuid();
+  //newPost.save((err, saved) => {
+  //  if (err) {
+  //    res.status(500).send(err);
+  //  }
+  //  res.json({ post: saved });
+  //});
 }
 
 /**

@@ -13,17 +13,28 @@ injectTapEventPlugin();
 class FormUpload extends Component {
 
   render() {
-    return (
-      <div>
-        <Dropzone
-          onDrop={ this.props.uploadAction }
-          className={ this.props.className }
-          multiple={ false }
-        >
-          <div>{ this.props.label }</div>
-        </Dropzone>
-      </div>
-    );
+    const files = this.props.input.value;
+
+    if (!files.length) {
+      return (
+        <div>
+          <Dropzone
+            name={ this.props.name }
+            className={ this.props.className }
+            multiple={ false }
+            onDrop={( filesToUpload, e ) => this.props.input.onChange(filesToUpload)}
+          >
+            <div>{ this.props.label }</div>
+          </Dropzone>
+        </div>
+      );
+    } else {
+      return (
+        <div className={ this.props.className }>
+          <img className={ forms['preview-image'] } src={ files[0].preview } />
+        </div>
+      );
+    }
   }
 }
 
