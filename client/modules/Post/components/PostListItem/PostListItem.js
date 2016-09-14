@@ -1,36 +1,55 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+var dateFormat = require('dateformat');
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 import styles from './PostListItem.css';
 
-function PostListItem(props) {
-  return (
-    <div className={styles['single-post']}>
-      <h3 className={styles['post-title']}>
-        <Link to={`/posts/${props.post.cuid}`} >
-          {props.post.title}
-        </Link>
-      </h3>
-      <p className={styles['author-name']}>
-        By {props.post.name}
-      </p>
-      <p className={styles['post-desc']}>{props.post.content}</p>
-      <p className={styles['post-action']}>
-        <a href="#" onClick={props.onDelete}>
-          Delete Post
-        </a>
-      </p>
-      <hr className={styles.divider} />
-    </div>
-  );
+export class PostListItem extends Component {
+
+  renderDeleteButton() {
+    if (this.props.auth.authenticated) {
+      return (
+        <div className={ styles['right-float'] } >
+          <FlatButton label="Delete Post" onClick={ this.props.onDelete } />
+        </div>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div className={styles['single-post']}>
+        <Card>
+          <CardHeader
+            title="by @savonevich"
+            subtitle={ dateFormat(this.props.post.dateAdded, "mmmm dS, yyyy, h:MM TT") }
+            avatar={ require('./../../../../../server/images/users/sav.jpg') }
+          >
+            { this.renderDeleteButton() }
+            </CardHeader>
+          <Link to={`/posts/${this.props.post.cuid}`} >
+            <CardMedia overlay={<CardTitle title={ this.props.post.title } />} >
+              <img src={ require('./../../../../../server/images/posts/' + this.props.post.cover_url) }  />
+            </CardMedia>
+          </Link>
+          <CardText>
+            { this.props.post.preview }
+          </CardText>
+        </Card>
+        <hr className={styles.divider}/>
+      </div>
+    );
+  }
 }
 
 PostListItem.propTypes = {
   post: PropTypes.shape({
-    name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    cover_url: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired
   }).isRequired,
   onDelete: PropTypes.func.isRequired

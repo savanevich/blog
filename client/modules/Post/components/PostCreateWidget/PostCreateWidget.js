@@ -17,20 +17,8 @@ import forms from './../../../../styles/forms.css';
 export class PostCreate extends Component {
 
   onSubmitForm(props) {
-    console.log(props);
     this.props.addPost(props);
   }
-
-  handleUpload = (files) => {
-
-    const formData = new FormData();
-    formData.append('uploads[]', files[0], files[0].name);
-
-    axios.post(`${API_URL}/posts/download-image`, formData)
-      .then(function(data){
-        console.log(data);
-      });
-  };
 
   render() {
     const { handleSubmit } = this.props;
@@ -87,6 +75,10 @@ function validate(formProps) {
 
   if (!formProps.content) {
     errors.content = 'Please enter a content';
+  }
+
+  if (!formProps.postImage) {
+    errors.postImage = 'Please upload a cover for the post';
   }
 
   return errors;

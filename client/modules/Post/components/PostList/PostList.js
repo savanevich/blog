@@ -9,6 +9,7 @@ function PostList(props) {
         props.posts.map(post => (
           <PostListItem
             post={post}
+            auth={props.auth}
             key={post.cuid}
             onDelete={() => props.handleDeletePost(post.cuid)}
           />
@@ -20,11 +21,11 @@ function PostList(props) {
 
 PostList.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    cuid: PropTypes.string.isRequired
+    cuid: PropTypes.string.isRequired,
+    cover_url: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired
   })).isRequired,
   handleDeletePost: PropTypes.func.isRequired
 };

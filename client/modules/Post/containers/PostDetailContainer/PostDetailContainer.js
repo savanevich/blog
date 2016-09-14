@@ -20,7 +20,7 @@ class PostDetailPage extends Component {
           <div className={`${styles['single-post']} ${styles['post-detail']}`}>
             <h3 className={styles['post-title']}>{this.props.post.title}</h3>
             <p className={styles['author-name']}>
-              By {this.props.post.name}
+              By @savonevich
             </p>
             <p className={styles['post-desc']}>{this.props.post.content}</p>
           </div>

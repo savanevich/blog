@@ -1,5 +1,6 @@
 import axios from 'axios';
 import callApi, { API_URL } from '../Common/Helpers/apiCaller';
+import { browserHistory } from 'react-router';
 import {
   FETCH_POSTS,
   FETCH_POST,
@@ -26,7 +27,17 @@ export function fetchPost(id) {
 }
 
 export function createPost(formData) {
-  const request = axios.post(`${API_URL}/posts`, formData);
+  axios({
+    method: 'post',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': localStorage.getItem('token')
+    },
+    url: `${API_URL}/posts`,
+    data: formData
+  }).then(function() {
+    browserHistory.push('/');
+  });
 
   return {
     type: CREATE_POST,

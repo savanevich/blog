@@ -5,10 +5,10 @@ import sanitizeHtml from 'sanitize-html';
 import fs from 'fs';
 import formidable from 'formidable';
 import path from 'path';
-import uuid from 'node-uuid';
 
 /**
  * Get all posts
+ *
  * @param req
  * @param res
  * @returns void
@@ -24,89 +24,65 @@ export function getPosts(req, res) {
 
 /**
  * Save a post
+ *
  * @param req
  * @param res
  * @returns void
  */
 export function addPost(req, res) {
 
-  var form = new formidable.IncomingForm();
-  const fields = [];
+  const form = new formidable.IncomingForm();
+  const fields = {};
+  let fileName = '';
+
   form.multiples = false;
   form.uploadDir = path.join(__dirname, '/../images/posts');
 
-
-  //console.log(form);
   form.on('field', function(field, value) {
-    //console.log(field, value);
-    fields.push([field, value]);
+    fields[field] = value;
   });
 
-  // every time a file has been uploaded successfully,
-  // rename it to it's orignal name
   form.on('file', function(field, file) {
-    let fileFormat = file.name.split('.').pop();
-
+    const fileFormat = file.name.split('.').pop();
     // generate unique name for file
-    file.name = uuid.v4() + '.' + fileFormat;
+    fileName = cuid() + '.' + fileFormat;
+
+    file.name = fileName;
     fs.rename(file.path, path.join(form.uploadDir, file.name));
   });
 
   form.on('error', function(err) {
-    console.log('An error has occured: \n' + err);
+    res.end(err);
   });
 
   form.on('end', function() {
-    //res.end('success');
-    console.log('fields');
-    console.log(fields);
-    var decoded = jwt.decode(token, secret);
 
-    if (!fields.title || !fields.preview || !fields.content) {
+    if (!fields.title || !fields.preview || !fields.content || !fileName) {
       res.status(403).end();
     }
 
     const newPost = new Post();
-
-    // Let's sanitize inputs
-    newPost.title = sanitizeHtml(fields.title);
-    newPost.name = sanitizeHtml(fields.preview);
-    newPost.content = sanitizeHtml(fields.content);
-
     newPost.cuid = cuid();
+    newPost.user_id = req.user._id;
+    newPost.title = sanitizeHtml(fields.title);
+    newPost.preview = sanitizeHtml(fields.preview);
+    newPost.content = sanitizeHtml(fields.content);
+    newPost.cover_url = fileName;
+
     newPost.save((err, saved) => {
       if (err) {
-        res.status(500).send(err);
+        res.end(err);
       }
       res.json({ post: saved });
     });
   });
 
   form.parse(req);
-
-  //if (!req.body.post.name || !req.body.post.title || !req.body.post.content) {
-  //  res.status(403).end();
-  //}
-  //
-  //const newPost = new Post(req.body.post);
-  //
-  //// Let's sanitize inputs
-  //newPost.title = sanitizeHtml(newPost.title);
-  //newPost.name = sanitizeHtml(newPost.name);
-  //newPost.content = sanitizeHtml(newPost.content);
-  //
-  //newPost.slug = slug(newPost.title.toLowerCase(), { lowercase: true });
-  //newPost.cuid = cuid();
-  //newPost.save((err, saved) => {
-  //  if (err) {
-  //    res.status(500).send(err);
-  //  }
-  //  res.json({ post: saved });
-  //});
 }
 
 /**
  * Get a single post
+ *
  * @param req
  * @param res
  * @returns void
@@ -122,6 +98,7 @@ export function getPost(req, res) {
 
 /**
  * Delete a post
+ *
  * @param req
  * @param res
  * @returns void
@@ -136,38 +113,4 @@ export function deletePost(req, res) {
       res.status(200).end();
     });
   });
-}
-
-/**
- * Download an image for post
- *
- * @param req
- * @param res
- * @returns void
- */
-export function downloadImage(req, res) {
-
-  var form = new formidable.IncomingForm();
-  form.multiples = false;
-  form.uploadDir = path.join(__dirname, '/../images/posts');
-
-  // every time a file has been uploaded successfully,
-  // rename it to it's orignal name
-  form.on('file', function(field, file) {
-    let fileFormat = file.name.split('.').pop();
-
-    // generate unique name for file
-    file.name = uuid.v4() + '.' + fileFormat;
-    fs.rename(file.path, path.join(form.uploadDir, file.name));
-  });
-
-  form.on('error', function(err) {
-    console.log('An error has occured: \n' + err);
-  });
-
-  form.on('end', function() {
-    res.end('success');
-  });
-
-  form.parse(req);
 }

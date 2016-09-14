@@ -20,7 +20,7 @@ class PostListPage extends Component {
   render() {
     if (this.props.posts) {
       return (
-        <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts}/>
+        <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} auth={this.props.auth} />
       );
     } else {
       return <div>Loading</div>;
@@ -30,7 +30,8 @@ class PostListPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts.allPosts
+    posts: state.posts.allPosts,
+    auth: state.auth
   };
 }
 

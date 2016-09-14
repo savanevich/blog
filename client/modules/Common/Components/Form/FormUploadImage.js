@@ -19,6 +19,7 @@ class FormUpload extends Component {
       return (
         <div>
           <Dropzone
+            { ...this.props.input }
             name={ this.props.name }
             className={ this.props.className }
             multiple={ false }
@@ -26,6 +27,7 @@ class FormUpload extends Component {
           >
             <div>{ this.props.label }</div>
           </Dropzone>
+          { this.props.meta.touched && this.props.meta.error && <div className={ forms['error'] }>{ this.props.meta.error }</div>}
         </div>
       );
     } else {
