@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import PostList from '../../components/PostList/PostList';
+import PostListSidebar from '../../components/PostListSidebar/PostListSidebar'
+import styles from './PostListContainer.css';
 import { fetchPosts, deletePost } from '../../PostActions';
 
 class PostListPage extends Component {
@@ -20,7 +22,17 @@ class PostListPage extends Component {
   render() {
     if (this.props.posts) {
       return (
-        <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} auth={this.props.auth} />
+        <div>
+          <div className={styles['posts-list']}>
+            <PostList
+              handleDeletePost={this.handleDeletePost}
+              posts={this.props.posts}
+              auth={this.props.auth} />
+          </div>
+          <div className={styles['posts-sidebar']}>
+            <PostListSidebar />
+          </div>
+        </div>
       );
     } else {
       return <div>Loading</div>;

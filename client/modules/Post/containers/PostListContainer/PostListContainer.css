@@ -1,0 +1,9 @@
+.posts-list {
+  width: 70%;
+  float: left;
+}
+
+.posts-sidebar {
+  width: 25%;
+  float: right;
+}

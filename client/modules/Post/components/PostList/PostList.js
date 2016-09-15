@@ -27,7 +27,8 @@ PostList.propTypes = {
     cover_url: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired
   })).isRequired,
-  handleDeletePost: PropTypes.func.isRequired
+  handleDeletePost: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 export default PostList;

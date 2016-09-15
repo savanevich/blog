@@ -1,0 +1,25 @@
+.popular-posts-block {
+  margin-top: 35px;
+}
+
+.block-header {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin: 0 30px 0 20px;
+  border-bottom: 1px solid rgba(0,0,0,.0785);
+}
+
+.catalog-name {
+  color: rgba(0,0,0,.44);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+.catalog-description {
+  color: rgba(0,0,0,.8);
+  font-size: 14px;
+  padding-top: 2px;
+}

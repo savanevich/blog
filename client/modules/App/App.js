@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import styles from './App.css';
 import Helmet from 'react-helmet';
+import grid from 'flexboxgrid/dist/flexboxgrid.min.css';
 
 import DevTools from './components/DevTools';
 import Header from './components/Header/Header';
@@ -22,10 +23,11 @@ export class App extends Component {
   }
 
   render() {
+
     return (
       <div>
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
-        <div>
+        <div className={styles['site-background']}>
           <Helmet
             title="Simple Blog"
             titleTemplate="%s - Blog App"
