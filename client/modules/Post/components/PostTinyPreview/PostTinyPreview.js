@@ -11,8 +11,8 @@ function PostTinyPreview(props) {
       <ListItem
         disabled={true}
         leftAvatar={
-        <Avatar src={ require('./../../../../../server/images/users/' + props.post.userImage) } />
-      }
+          <Avatar src={ require('./../../../../../server/images/users/' + props.post.userImage) } />
+        }
         primaryText={ <p className={styles['primary-text']}>{props.post.title}</p> }
         secondaryText={ props.post.username }
       >

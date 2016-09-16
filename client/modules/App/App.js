@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 
 import styles from './App.css';
 import Helmet from 'react-helmet';
-import grid from 'flexboxgrid/dist/flexboxgrid.min.css';
 
 import DevTools from './components/DevTools';
 import Header from './components/Header/Header';

@@ -2,6 +2,13 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import Avatar from 'material-ui/Avatar';
+import FlatButton from 'material-ui/FlatButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton/IconButton';
+import Divider from 'material-ui/Divider';
+
 import styles from './Header.css';
 
 export class Header extends Component {
@@ -16,20 +23,27 @@ export class Header extends Component {
 
   renderLinks() {
     if (this.props.authenticated) {
+
       return (
         <ul className={styles['menu-items']}>
-          <li>
-            <Link className={styles['header-button']} to="/add-post">
-              Add Post
+          <li className={styles['add-post']}>
+            <Link to="/add-post">
+              Write a story
             </Link>
           </li>
           <li>
-            <a
-              className={styles['header-button']}
-              href="#"
-              onClick={() => this.props.signOutUser()}>
-              Sign Out
-            </a>
+            <IconMenu
+              iconButtonElement={ <IconButton style={{ height: 0, width: 0, padding: '3px' }}>
+                <Avatar size={30} src={ require('./../../../../../server/images/users/sav.jpg') } /></IconButton>
+              }
+              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+              targetOrigin={{horizontal: 'right', vertical: 'top'}}
+            >
+              <MenuItem primaryText="Settings" />
+              <MenuItem primaryText="Help" />
+              <Divider />
+              <MenuItem primaryText="Sign out" onClick={() => this.props.signOutUser()} />
+            </IconMenu>
           </li>
         </ul>
       );
@@ -37,13 +51,13 @@ export class Header extends Component {
       return (
         <ul className={styles['menu-items']}>
           <li>
-            <Link className={styles['header-button']} to="/signin">
-              Sign In
+            <Link to="/signin">
+              <FlatButton label="Sign In" primary={true} />
             </Link>
           </li>
           <li>
-            <Link className={styles['header-button']} to="/signup">
-              Sign Up
+            <Link to="/signup">
+              <FlatButton label="Sign Up" primary={true} />
             </Link>
           </li>
         </ul>
@@ -55,10 +69,15 @@ export class Header extends Component {
 
     return (
       <div className={styles.header}>
-        <div className={styles['language-switcher']}>
+        <div className={styles['header-left-side']}>
           <ul>
             <li className={styles['site-title']}>
-              <Link to="/">Blog</Link>
+              <Link to="/">
+                <div className={styles['site-title-logo']}>
+                  <img className={styles['logo-icon']} src={ require('./logo-icon.gif') } alt="Logo"/>
+                </div>
+                <div className={styles['site-name']}>Simple Blog</div>
+              </Link>
             </li>
           </ul>
         </div>

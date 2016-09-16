@@ -27,14 +27,10 @@ function PostSidebarBlockItem(props) {
   );
 }
 
-PostTinyPreview.propTypes = {
+PostSidebarBlockItem.propTypes = {
   catalogName: PropTypes.string.isRequired,
   catalogDescription: PropTypes.string.isRequired,
-  post: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    userImage: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired
-  }).isRequired
+  posts: PropTypes.array.isRequired
 };
 
 export default PostSidebarBlockItem;

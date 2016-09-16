@@ -1,7 +1,20 @@
 .header {
-  background: #eee url('../../header-bk.png') center;
   background-size: cover;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #eee;
+  position: fixed;
+  top: 0;
+  height: 45px;
+  width: 100%;
+  z-index: 500;
+  display: block;
+  font-size: 14px;
+  background: #fff;
+  color: rgba(0,0,0,.44);
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-style: normal;
+  box-sizing: border-box;
 }
 
 .content {
@@ -18,39 +31,59 @@
 
 .site-title a {
   text-decoration: none;
-  color: #FFF;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 16px;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-style: normal;
+  white-space: nowrap;
 }
 
-.header-button {
-  display: inline-block;
-  color: #FFF;
-  background: #03A9F4;
-  padding: 8px 16px;
-  text-decoration: none;
-  border-radius: 1000px;
-  float: right;
+.site-title-logo {
+  float: left;
+  margin-right: 15px;
 }
 
-.language-switcher {
+.site-name {
+  margin-top: 10px;
+}
+.site-name:hover {
+  color: black;
+}
+
+.add-post {
+  margin-right: 20px;
+  vertical-align: super;
+}
+
+.add-post a {
+  color: #00ab6b;
+}
+
+.add-post a:hover {
+  color: #02b875;
+}
+
+.header-left-side {
   background: rgba(0, 0, 0, 0.1);
 }
 
-.language-switcher ul, .menu-items ul {
+.header-left-side ul, .menu-items ul {
   list-style: none;
-  width: 980px;
+  width: 1080px;
   margin: auto;
   text-align: right;
 }
 
-.language-switcher li, .menu-items li {
+.header-left-side li, .menu-items li {
   display: inline-block;
-  margin: 10px 0px;
-  padding: 5px;
+  padding: 3px;
   cursor: pointer;
   color: #fff;
 }
 
-.language-switcher li:first-child, .menu-items li:first-child {
+.header-left-side li:first-child, .menu-items li:first-child {
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -59,13 +92,16 @@
   padding-right: 50px;
 }
 
-.selected {
-  border-bottom: 1px solid #fff;
+.logo-icon {
+  height: 38px;
 }
 
-@media (max-width: 767px){
-  .add-post-button{
-    float: left;
-    margin-top: 16px;
-  }
+.button-label {
+  text-transform: none;
+}
+
+.icon-button {
+  height: 0;
+  width: 0;
+  padding: 3px;
 }

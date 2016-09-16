@@ -52,10 +52,7 @@ PostListItem.propTypes = {
     cover_url: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired
   }).isRequired,
-  onDelete: PropTypes.func.isRequired,
-  auth: PropTypes.shape({
-    authenticated: PropTypes.bool.isRequired
-  }).isRequired
+  onDelete: PropTypes.func.isRequired
 };
 
 export default PostListItem;
