@@ -4,6 +4,9 @@
 }
 
 .posts-sidebar {
-  width: 25%;
+  width: 15%;
   float: right;
+  position: fixed;
+  right: 23%;
+  top: 4%;
 }

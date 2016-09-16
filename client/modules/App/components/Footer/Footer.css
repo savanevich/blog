@@ -1,18 +1,15 @@
-.footer{
-  text-align: center;
-  padding: 56px 0;
-  background-size: cover;
-  clear: both;
+.footer {
+  padding-top: 20px;
+  margin: 30px 20px 0 20px;
+  border-top: 1px solid rgba(0,0,0,.0785);
 }
 
-.footer p{
-  margin: 0 0 8px 0;
-  font-size: 14px;
-  color: #FFF;
+.footer p {
+  font-size: 11px;
+  color: rgba(0,0,0,.44)
 }
 
-.footer a{
-  color: #FFF;
+.footer p a {
   text-decoration: none;
-  font-weight: 700;
+  color: rgba(0,0,0,.44);
 }

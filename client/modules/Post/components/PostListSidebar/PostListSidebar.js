@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 
 import PostSidebarBlockItem from './../PostSidebarBlockItem/PostSidebarBlockItem';
+import Footer from './../../../App/components/Footer/Footer';
 
 export class PostSidebar extends Component {
 
@@ -38,6 +39,7 @@ export class PostSidebar extends Component {
           catalogDescription="Take a spin with stories you may have missed."
           posts={ posts }
         />
+        <Footer />
       </div>
     );
   }
