@@ -1,0 +1,51 @@
+.single-post {
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 2px;
+  width: 80%;
+}
+
+.post-title {
+  margin-bottom: 16px;
+  margin-top: 38px;
+  color: #616161;
+  font-family: medium-content-sans-serif-font,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 40px;
+  margin-left: -2.5px;
+  line-height: 1.04;
+  letter-spacing: -.028em;
+  color: rgba(0,0,0,.8);
+}
+
+.post-title a{
+  text-decoration: none;
+  color: #616161;
+}
+
+.post-image {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.author-name{
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #757575;
+}
+
+.post-desc, .post-preview {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 28px;
+  font-family: medium-content-serif-font,Georgia,Cambria,"Times New Roman",Times,serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.58;
+  letter-spacing: -.003em;
+}
+
+.primary-text {
+  font-size: small;
+}
