@@ -23,27 +23,19 @@ class SignIn extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div className={ forms['form'] }>
-        <form className={ forms['form-content'] }>
-          <FormHeading label="Sign In Form" />
+      <div>
           <Field
             name="email"
             type="text"
             placeholder="Email"
-            className={ forms['form-field'] }
             component={ FormInput } />
           <Field
             name="password"
             type="password"
             placeholder="Confirm Password"
-            className={ forms['form-field'] }
             component={ FormInput } />
           <FormAlert errorMessage={ this.props.errorMessage } />
-          <FormSubmitButton
-            label="Submit"
-            actionSubmit={ handleSubmit(this.onSubmitForm.bind(this)) } />
-        </form>
-      </div>
+        </div>
     );
   }
 }

@@ -1,17 +1,20 @@
 import React from 'react';
 import styles from './../../../../styles/forms.css';
+import TextField from 'material-ui/TextField'
 
 function FormField(props) {
 
   return (
     <div>
-      <input
+      <TextField
         className={props.className}
         type={props.type}
-        placeholder={props.placeholder}
+        hintText={props.placeholder}
+        floatingLabelText={props.placeholder}
+        errorText={props.meta.touched && props.meta.error}
+        fullWidth="true"
         { ...props.input }
       />
-      { props.meta.touched && props.meta.error && <div className={ styles['error'] }>{ props.meta.error }</div>}
     </div>
   );
 }

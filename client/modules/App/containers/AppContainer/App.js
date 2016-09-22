@@ -5,11 +5,11 @@ import { bindActionCreators } from 'redux';
 import styles from './App.css';
 import Helmet from 'react-helmet';
 
-import DevTools from './components/DevTools';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import DevTools from './../../components/DevTools';
+import Header from './../../components/Header/Header';
+import Footer from './../../components/Footer/Footer';
 
-import { signOutUser } from '../../modules/Auth/AuthActions';
+import { signOutUser } from '../../../Auth/AuthActions';
 
 export class App extends Component {
   constructor(props) {

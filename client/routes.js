@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './modules/App/App';
+import App from './modules/App/containers/AppContainer/App';
 import { unAuthRoutes, authRoutes } from './modules/Common/Helpers/protectedRoutes';
 
 if (typeof require.ensure !== 'function') {

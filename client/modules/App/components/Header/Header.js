@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import SignInContainer from './../../../Auth/containers/SignInContainer/SignInContainer';
 
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
@@ -8,6 +9,9 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import Divider from 'material-ui/Divider';
+import Dialog from 'material-ui/Dialog';
+import RaisedButton from 'material-ui/RaisedButton';
+import DatePicker from 'material-ui/DatePicker';
 
 import styles from './Header.css';
 
@@ -19,6 +23,18 @@ export class Header extends Component {
 
   static propTypes = {
     signOutUser: PropTypes.func.isRequired
+  };
+
+  state = {
+    isSignInOpen: false
+  };
+
+  handleOpenSignIn = () => {
+    this.setState({isSignInOpen: true});
+  };
+
+  handleCloseSignIn = () => {
+    this.setState({isSignInOpen: false});
   };
 
   renderLinks() {
@@ -51,16 +67,40 @@ export class Header extends Component {
       return (
         <ul className={styles['menu-items']}>
           <li>
-            <Link to="/signin">
-              <FlatButton label="Sign In" primary={true} />
-            </Link>
+            <a href="#">
+              <FlatButton label="Sign In"
+                          primary={true}
+                          onTouchTap={this.handleOpenSignIn} />
+            </a>
           </li>
           <li>
             <Link to="/signup">
               <FlatButton label="Sign Up" primary={true} />
             </Link>
           </li>
+          <Dialog
+            title="Sign In Form"
+            actions={[
+              <FlatButton
+                label="Cancel"
+                primary={true}
+                onTouchTap={this.handleCloseSignIn}
+              />,
+              <FlatButton
+                label="Submit"
+                primary={true}
+                keyboardFocused={true}
+                onTouchTap={this.handleCloseSignIn}
+              />
+            ]}
+            modal={false}
+            open={this.state.isSignInOpen}
+            onRequestClose={this.handleCloseSignIn}
+          >
+            <SignInContainer />
+          </Dialog>
         </ul>
+
       );
     }
   }
