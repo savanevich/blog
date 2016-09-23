@@ -21,17 +21,15 @@ export class PostCreate extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, reset } = this.props;
 
     return (
-      <div className={forms['form']}>
         <div className={forms['form-content']}>
           <FormHeading label="Create new post" />
           <Field
             name="title"
             type="text"
             placeholder="Title"
-            className={ forms['form-field'] }
             component={ FormInput } />
           <Field
             name="postImage"
@@ -42,22 +40,21 @@ export class PostCreate extends Component {
             name="preview"
             type="text"
             placeholder="Preview"
-            rows="3"
-            className={ forms['form-field'] }
-            component={ FormTextarea } />
+            rows="4"
+            component={ FormInput } />
           <Field
             name="content"
             type="text"
             placeholder="Content"
-            rows="8"
-            className={ forms['form-field'] }
-            component={ FormTextarea } />
+            rows="10"
+            component={ FormInput } />
           <FormAlert errorMessage={ this.props.errorMessage } />
           <FormButtons
-            label="Submit"
-            actionSubmit={ handleSubmit(this.onSubmitForm.bind(this)) } />
+            labelSubmit="Submit"
+            labelCancel="Reset"
+            actionSubmit={ handleSubmit(this.onSubmitForm.bind(this)) }
+            actionCancel={ reset }/>
         </div>
-      </div>
     );
   }
 }

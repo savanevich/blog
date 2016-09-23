@@ -26,13 +26,12 @@ export class App extends Component {
     return (
       <div>
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
-        <div className={styles['site-background']}>
-          <Helmet
-            title="Simple Blog"
-            titleTemplate="%s - Blog App"
-            meta={[
-              { charset: 'utf-8' },
-              {
+        <Helmet
+          title="Simple Blog"
+          titleTemplate="%s - Blog App"
+          meta={[
+             { charset: 'utf-8' },
+             {
                 'http-equiv': 'X-UA-Compatible',
                 content: 'IE=edge'
               },
@@ -42,12 +41,11 @@ export class App extends Component {
               }
             ]}
           />
-          <Header
-            signOutUser={this.props.signOutUser}
-          />
-          <div className={styles.container}>
-            {this.props.children}
-          </div>
+        <Header
+          signOutUser={this.props.signOutUser}
+        />
+        <div className={styles.container}>
+          {this.props.children}
         </div>
       </div>
     );

@@ -4,6 +4,9 @@ import TextField from 'material-ui/TextField'
 
 function FormField(props) {
 
+  const multiLine = !!(props.rows);
+  const rowsNumber = props.rows ? +props.rows : 1;
+
   return (
     <div>
       <TextField
@@ -13,6 +16,8 @@ function FormField(props) {
         floatingLabelText={props.placeholder}
         errorText={props.meta.touched && props.meta.error}
         fullWidth={true}
+        multiLine={multiLine}
+        rows={rowsNumber}
         { ...props.input }
       />
     </div>
