@@ -6,7 +6,7 @@ import {
   FormInput,
   FormAlert,
   FormHeading,
-  FormSubmitButton
+  FormButtons
 } from './../../../Common/Components/Form';
 import forms from './../../../../styles/forms.css';
 import { validateEmail } from '../../../Common/Helpers/common';
@@ -21,37 +21,34 @@ class SignUp extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div className={ forms['form'] }>
-        <form className={ forms['form-content'] }>
-          <FormHeading label="Sign Up Form" />
+      <div>
+        <form>
           <Field
             name="email"
             type="text"
             placeholder="Email"
-            className={ forms['form-field'] }
             component={ FormInput } />
           <Field
             name="username"
             type="text"
             placeholder="Username"
-            className={ forms['form-field'] }
             component={ FormInput } />
           <Field
             name="password"
             type="password"
             placeholder="Password"
-            className={ forms['form-field'] }
             component={ FormInput } />
           <Field
             name="password2"
             type="password"
             placeholder="Confirm Password"
-            className={ forms['form-field'] }
             component={ FormInput } />
           <FormAlert errorMessage={ this.props.errorMessage } />
-          <FormSubmitButton
-            label="Submit"
-            actionSubmit={ handleSubmit(this.onSubmitForm.bind(this)) } />
+          <FormButtons
+            labelSubmit="Submit"
+            labelCancel="Cancel"
+            actionSubmit={ handleSubmit(this.onSubmitForm.bind(this)) }
+            actionCancel={ this.props.onCloseAction } />
         </form>
       </div>
     );

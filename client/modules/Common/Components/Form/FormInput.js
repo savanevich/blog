@@ -12,7 +12,7 @@ function FormField(props) {
         hintText={props.placeholder}
         floatingLabelText={props.placeholder}
         errorText={props.meta.touched && props.meta.error}
-        fullWidth="true"
+        fullWidth={true}
         { ...props.input }
       />
     </div>

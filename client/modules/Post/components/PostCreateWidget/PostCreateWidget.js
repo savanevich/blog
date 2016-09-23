@@ -8,7 +8,7 @@ import {
   FormInput,
   FormAlert,
   FormHeading,
-  FormSubmitButton,
+  FormButtons,
   FormTextarea,
   FormUpload
 } from './../../../Common/Components/Form';
@@ -53,7 +53,7 @@ export class PostCreate extends Component {
             className={ forms['form-field'] }
             component={ FormTextarea } />
           <FormAlert errorMessage={ this.props.errorMessage } />
-          <FormSubmitButton
+          <FormButtons
             label="Submit"
             actionSubmit={ handleSubmit(this.onSubmitForm.bind(this)) } />
         </div>

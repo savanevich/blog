@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import SignInContainer from './../../../Auth/containers/SignInContainer/SignInContainer';
 
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
@@ -9,9 +9,10 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import Divider from 'material-ui/Divider';
-import Dialog from 'material-ui/Dialog';
-import RaisedButton from 'material-ui/RaisedButton';
-import DatePicker from 'material-ui/DatePicker';
+
+import SignInContainer from './../../../Auth/containers/SignInContainer/SignInContainer';
+import SignUpContainer from './../../../Auth/containers/SignUpContainer/SignUpContainer';
+import { authError } from './../../../Auth/AuthActions';
 
 import styles from './Header.css';
 
@@ -26,15 +27,38 @@ export class Header extends Component {
   };
 
   state = {
-    isSignInOpen: false
+    isSignInOpen: false,
+    isSignUpOpen: false
   };
 
   handleOpenSignIn = () => {
-    this.setState({isSignInOpen: true});
+    this.props.authError();
+    this.setState({
+      ...this.state,
+      isSignInOpen: true
+    });
   };
 
   handleCloseSignIn = () => {
-    this.setState({isSignInOpen: false});
+    this.setState({
+      ...this.state,
+      isSignInOpen: false
+    });
+  };
+
+  handleOpenSignUp = () => {
+    this.props.authError();
+    this.setState({
+      ...this.state,
+      isSignUpOpen: true
+    });
+  };
+
+  handleCloseSignUp = () => {
+    this.setState({
+      ...this.state,
+      isSignUpOpen: false
+    });
   };
 
   renderLinks() {
@@ -67,40 +91,26 @@ export class Header extends Component {
       return (
         <ul className={styles['menu-items']}>
           <li>
-            <a href="#">
-              <FlatButton label="Sign In"
-                          primary={true}
-                          onTouchTap={this.handleOpenSignIn} />
-            </a>
+            <FlatButton
+              label="Sign In"
+              primary={true}
+              onTouchTap={ this.handleOpenSignIn } />
           </li>
           <li>
-            <Link to="/signup">
-              <FlatButton label="Sign Up" primary={true} />
-            </Link>
+            <FlatButton
+              label="Sign Up"
+              primary={true}
+              onTouchTap={ this.handleOpenSignUp } />
           </li>
-          <Dialog
-            title="Sign In Form"
-            actions={[
-              <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={this.handleCloseSignIn}
-              />,
-              <FlatButton
-                label="Submit"
-                primary={true}
-                keyboardFocused={true}
-                onTouchTap={this.handleCloseSignIn}
-              />
-            ]}
-            modal={false}
-            open={this.state.isSignInOpen}
-            onRequestClose={this.handleCloseSignIn}
-          >
-            <SignInContainer />
-          </Dialog>
+          <SignInContainer
+            isOpen={ this.state.isSignInOpen }
+            onCloseAction={ this.handleCloseSignIn }
+          />
+          <SignUpContainer
+            isOpen={ this.state.isSignUpOpen }
+            onCloseAction={ this.handleCloseSignUp }
+          />
         </ul>
-
       );
     }
   }
@@ -135,4 +145,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Header);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ authError }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

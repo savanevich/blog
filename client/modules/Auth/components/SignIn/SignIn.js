@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 
@@ -6,7 +6,7 @@ import {
   FormInput,
   FormAlert,
   FormHeading,
-  FormSubmitButton
+  FormButtons
 } from './../../../Common/Components/Form';
 import forms from './../../../../styles/forms.css';
 import { validateEmail } from '../../../Common/Helpers/common';
@@ -21,9 +21,9 @@ class SignIn extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-
     return (
       <div>
+        <form>
           <Field
             name="email"
             type="text"
@@ -35,10 +35,20 @@ class SignIn extends Component {
             placeholder="Confirm Password"
             component={ FormInput } />
           <FormAlert errorMessage={ this.props.errorMessage } />
-        </div>
+          <FormButtons
+            labelSubmit="Submit"
+            labelCancel="Cancel"
+            actionSubmit={ handleSubmit(this.onSubmitForm.bind(this)) }
+            actionCancel={ this.props.onCloseAction } />
+        </form>
+      </div>
     );
   }
 }
+
+SignIn.propTypes = {
+  onCloseAction: PropTypes.func.isRequired
+};
 
 function validate(formProps) {
   const errors = {};
