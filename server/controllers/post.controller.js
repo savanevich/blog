@@ -14,7 +14,7 @@ import path from 'path';
  * @returns void
  */
 export function getPosts(req, res) {
-  Post.find().sort('-dateAdded').exec((err, posts) => {
+  Post.find({}, { content: 0 }).sort('-dateAdded').limit(5).exec((err, posts) => {
     if (err) {
       res.status(500).send(err);
     }
@@ -63,7 +63,12 @@ export function addPost(req, res) {
 
     const newPost = new Post();
     newPost.cuid = cuid();
-    newPost.user_id = req.user._id;
+    newPost.user = {
+      _id: req.user._id,
+      username: req.user.username,
+      email: req.user.email,
+      avatar_url: req.user.avatar_url
+    };
     newPost.title = sanitizeHtml(fields.title);
     newPost.preview = sanitizeHtml(fields.preview);
     newPost.content = sanitizeHtml(fields.content);

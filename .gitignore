@@ -10,3 +10,4 @@ coverage/
 .nyc_output/
 server/images/posts/*
 server/images/users/*
+!server/images/users/default.gif

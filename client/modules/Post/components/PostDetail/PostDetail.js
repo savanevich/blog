@@ -1,11 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import Helmet from 'react-helmet';
-import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
-import ListItem from 'material-ui/List/ListItem';
 var dateFormat = require('dateformat');
 
 import styles from './PostDetail.css';
+import ListItem from 'material-ui/List/ListItem';
 
 function PostDetail(props) {
 
@@ -18,9 +17,9 @@ function PostDetail(props) {
             <ListItem
               disabled={true}
               leftAvatar={
-                  <Avatar src={ require('./../../../../../server/images/users/sav.jpg') } size={ 45 } />
+                  <Avatar src={ require('./../../../../../server/images/users/' + props.post.user.avatar_url) } size={ 45 } />
                 }
-              primaryText={ <p className={ styles['primary-text']} >by savonevich</p> }
+              primaryText={ <p className={ styles['primary-text']} >by { props.post.user.username }</p> }
               secondaryText={ dateFormat(props.post.dateAdded, "mmmm dS, yyyy, h:MM TT") }
             >
             </ListItem>

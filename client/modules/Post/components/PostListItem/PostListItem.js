@@ -23,9 +23,9 @@ export class PostListItem extends Component {
       <div className={styles['single-post']}>
         <Card>
           <CardHeader
-            title="by @savonevich"
+            title={ `by ${this.props.post.user.username}` }
             subtitle={ dateFormat(this.props.post.dateAdded, "mmmm dS, yyyy, h:MM TT") }
-            avatar={ require('./../../../../../server/images/users/sav.jpg') }
+            avatar={ require('./../../../../../server/images/users/' + this.props.post.user.avatar_url) }
           >
             { this.renderDeleteButton() }
             </CardHeader>
@@ -47,10 +47,14 @@ export class PostListItem extends Component {
 PostListItem.propTypes = {
   post: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
     cover_url: PropTypes.string.isRequired,
-    cuid: PropTypes.string.isRequired
+    cuid: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      email: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      avatar_url: PropTypes.string.isRequired,
+    })
   }).isRequired,
   onDelete: PropTypes.func.isRequired
 };

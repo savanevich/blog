@@ -15,6 +15,10 @@ const userSchema = new Schema({
     unique: true,
     lowercase: true
   },
+  avatar_url: {
+    type: String,
+    default: 'default.gif'
+  },
   password: String
 });
 
