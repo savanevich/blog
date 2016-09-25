@@ -24,7 +24,9 @@ export default function(state = initialState, action) {
     case FETCH_POSTS:
       return {
         ...state,
-        allPosts: action.payload.data.posts
+        allPosts: action.payload.data.allPosts,
+        popularPosts: action.payload.data.popularPosts,
+        randomPosts: action.payload.data.randomPosts,
       };
 
     case DELETE_POST :

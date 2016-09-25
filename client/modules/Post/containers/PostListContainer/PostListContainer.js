@@ -30,7 +30,10 @@ class PostListPage extends Component {
               auth={this.props.auth} />
           </div>
           <div className={styles['posts-sidebar']}>
-            <PostListSidebar />
+            <PostListSidebar
+              popularPosts={this.props.popularPosts}
+              randomPosts={this.props.randomPosts}
+            />
           </div>
         </div>
       );
@@ -43,6 +46,8 @@ class PostListPage extends Component {
 function mapStateToProps(state) {
   return {
     posts: state.posts.allPosts,
+    popularPosts: state.posts.popularPosts,
+    randomPosts: state.posts.randomPosts,
     auth: state.auth
   };
 }

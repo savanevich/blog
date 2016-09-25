@@ -23,12 +23,12 @@ PostList.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
-    cover_url: PropTypes.string.isRequired,
+    coverUrl: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
     user: PropTypes.shape({
       email: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
-      avatar_url: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
     })
   })).isRequired,
   handleDeletePost: PropTypes.func.isRequired,

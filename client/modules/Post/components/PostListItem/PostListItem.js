@@ -25,13 +25,13 @@ export class PostListItem extends Component {
           <CardHeader
             title={ `by ${this.props.post.user.username}` }
             subtitle={ dateFormat(this.props.post.dateAdded, "mmmm dS, yyyy, h:MM TT") }
-            avatar={ require('./../../../../../server/images/users/' + this.props.post.user.avatar_url) }
+            avatar={ require('./../../../../../server/images/users/' + this.props.post.user.avatarUrl) }
           >
             { this.renderDeleteButton() }
             </CardHeader>
           <Link to={`/posts/${this.props.post.cuid}`} >
             <CardMedia overlay={<CardTitle title={ this.props.post.title } />} >
-              <img src={ require('./../../../../../server/images/posts/' + this.props.post.cover_url) }  />
+              <img src={ require('./../../../../../server/images/posts/' + this.props.post.coverUrl) }  />
             </CardMedia>
           </Link>
           <CardText>
@@ -48,12 +48,12 @@ PostListItem.propTypes = {
   post: PropTypes.shape({
     title: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
-    cover_url: PropTypes.string.isRequired,
+    coverUrl: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
     user: PropTypes.shape({
       email: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
-      avatar_url: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
     })
   }).isRequired,
   onDelete: PropTypes.func.isRequired

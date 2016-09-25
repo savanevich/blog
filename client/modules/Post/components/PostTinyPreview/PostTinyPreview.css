@@ -1,3 +1,7 @@
 .primary-text {
   font-size: small;
 }
+
+.preview-link {
+  text-decoration: none;
+}

@@ -1,6 +1,5 @@
 import Post from '../models/post';
 import cuid from 'cuid';
-import slug from 'limax';
 import sanitizeHtml from 'sanitize-html';
 import fs from 'fs';
 import formidable from 'formidable';
@@ -14,11 +13,28 @@ import path from 'path';
  * @returns void
  */
 export function getPosts(req, res) {
-  Post.find({}, { content: 0 }).sort('-dateAdded').limit(5).exec((err, posts) => {
+  Post.find({}, { content: 0 }).sort('-dateAdded').limit(5).exec((err, allPosts) => {
     if (err) {
       res.status(500).send(err);
     }
-    res.json({ posts });
+
+    Post.find({}, { content: 0, preview: 0 }).sort('-viewsCounter').limit(3).exec((err, popularPosts) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+
+      Post.findRandom({}, { content: 0, preview: 0 }, { limit: 3 }, function (err, randomPosts) {
+        if (err) {
+          res.status(500).send(err);
+        }
+
+        res.json({
+          allPosts,
+          popularPosts,
+          randomPosts
+        });
+      });
+    });
   });
 }
 
@@ -67,12 +83,12 @@ export function addPost(req, res) {
       _id: req.user._id,
       username: req.user.username,
       email: req.user.email,
-      avatar_url: req.user.avatar_url
+      avatarUrl: req.user.avatarUrl
     };
     newPost.title = sanitizeHtml(fields.title);
     newPost.preview = sanitizeHtml(fields.preview);
     newPost.content = sanitizeHtml(fields.content);
-    newPost.cover_url = fileName;
+    newPost.coverUrl = fileName;
 
     newPost.save((err, saved) => {
       if (err) {
@@ -97,7 +113,16 @@ export function getPost(req, res) {
     if (err) {
       res.status(500).send(err);
     }
-    res.json({ post });
+
+    post.viewsCounter =  ++post.viewsCounter;
+    post.save(function(err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+
+      res.json({ post });
+    });
+
   });
 }
 

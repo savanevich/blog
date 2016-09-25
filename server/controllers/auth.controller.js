@@ -1,7 +1,3 @@
-import Post from '../models/post';
-import cuid from 'cuid';
-import slug from 'limax';
-import sanitizeHtml from 'sanitize-html';
 import jwt from 'jwt-simple';
 import User from '../models/user';
 import config from '../config';

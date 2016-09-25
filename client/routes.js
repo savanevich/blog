@@ -15,8 +15,6 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/Post/containers/PostListContainer/PostListContainer');
   require('./modules/Post/containers/PostDetailContainer/PostDetailContainer');
   require('./modules/Post/containers/PostNewContainer/PostNewContainer');
-  require('./modules/Auth/containers/SignInContainer/SignInContainer');
-  require('./modules/Auth/containers/SignUpContainer/SignUpContainer');
 }
 
 // react-router setup with code-splitting
@@ -44,24 +42,6 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Post/containers/PostNewContainer/PostNewContainer').default);
-        });
-      }}
-    />
-    <Route
-      onEnter={unAuthRoutes}
-      path="/signin"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./modules/Auth/containers/SignInContainer/SignInContainer').default);
-        });
-      }}
-    />
-    <Route
-      onEnter={unAuthRoutes}
-      path="/signup"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./modules/Auth/containers/SignUpContainer/SignUpContainer').default);
         });
       }}
     />

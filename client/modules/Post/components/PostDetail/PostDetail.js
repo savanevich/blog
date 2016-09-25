@@ -17,7 +17,7 @@ function PostDetail(props) {
             <ListItem
               disabled={true}
               leftAvatar={
-                  <Avatar src={ require('./../../../../../server/images/users/' + props.post.user.avatar_url) } size={ 45 } />
+                  <Avatar src={ require('./../../../../../server/images/users/' + props.post.user.avatarUrl) } size={ 45 } />
                 }
               primaryText={ <p className={ styles['primary-text']} >by { props.post.user.username }</p> }
               secondaryText={ dateFormat(props.post.dateAdded, "mmmm dS, yyyy, h:MM TT") }
@@ -25,7 +25,7 @@ function PostDetail(props) {
             </ListItem>
           </div>
           <p>
-            <img className={ styles['post-image'] } src={ require('./../../../../../server/images/posts/' + props.post.cover_url) } />
+            <img className={ styles['post-image'] } src={ require('./../../../../../server/images/posts/' + props.post.coverUrl) } />
           </p>
           <h3 className={styles['post-title']}>{ props.post.title }</h3>
           <p className={styles['post-preview']}><b>{ props.post.preview }</b></p>
