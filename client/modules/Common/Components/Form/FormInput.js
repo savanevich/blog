@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './../../../../styles/forms.css';
-import TextField from 'material-ui/TextField'
+import TextField from 'material-ui/TextField';
 
 function FormField(props) {
 

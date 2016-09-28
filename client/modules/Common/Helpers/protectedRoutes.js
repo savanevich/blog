@@ -9,7 +9,7 @@ function loggedIn() {
 export function authRoutes(nextState, replace) {
   if (!loggedIn()) {
     replace({
-      pathname: '/signin',
+      pathname: '/',
       state: { nextPathname: nextState.location.pathname }
     })
   }

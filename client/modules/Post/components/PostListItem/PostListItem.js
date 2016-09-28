@@ -4,7 +4,14 @@ var dateFormat = require('dateformat');
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
+import PostTagsList from './../PostTagsList/PostTagsList';
 import styles from './PostListItem.css';
+
+const inlStyles = {
+  preview: {
+    paddingBottom: 0
+  }
+};
 
 export class PostListItem extends Component {
 
@@ -34,8 +41,9 @@ export class PostListItem extends Component {
               <img src={ require('./../../../../../server/images/posts/' + this.props.post.coverUrl) }  />
             </CardMedia>
           </Link>
-          <CardText>
+          <CardText style={inlStyles.preview}>
             { this.props.post.preview }
+            <PostTagsList tags={this.props.post.tags} />
           </CardText>
         </Card>
         <hr className={styles.divider}/>
@@ -49,11 +57,12 @@ PostListItem.propTypes = {
     title: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
     coverUrl: PropTypes.string.isRequired,
+    tags: PropTypes.array.isRequired,
     cuid: PropTypes.string.isRequired,
     user: PropTypes.shape({
       email: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
-      avatarUrl: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired
     })
   }).isRequired,
   onDelete: PropTypes.func.isRequired

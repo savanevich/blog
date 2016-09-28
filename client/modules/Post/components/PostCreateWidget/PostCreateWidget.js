@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
 import { Field, reduxForm } from 'redux-form'
-import { bindActionCreators } from 'redux';
-import { API_URL } from './../../../Common/Helpers/apiCaller';
 
 import {
   FormInput,
@@ -10,7 +8,8 @@ import {
   FormHeading,
   FormButtons,
   FormTextarea,
-  FormUpload
+  FormUpload,
+  FormTagsInput
 } from './../../../Common/Components/Form';
 import forms from './../../../../styles/forms.css';
 
@@ -48,6 +47,10 @@ export class PostCreate extends Component {
             placeholder="Content"
             rows="10"
             component={ FormInput } />
+          <Field
+            name="tags"
+            type="text"
+            component={ FormTagsInput } />
           <FormAlert errorMessage={ this.props.errorMessage } />
           <FormButtons
             labelSubmit="Submit"

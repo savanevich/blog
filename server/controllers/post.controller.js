@@ -85,13 +85,25 @@ export function addPost(req, res) {
       email: req.user.email,
       avatarUrl: req.user.avatarUrl
     };
+
     newPost.title = sanitizeHtml(fields.title);
     newPost.preview = sanitizeHtml(fields.preview);
     newPost.content = sanitizeHtml(fields.content);
+
+    let tags = [];
+    fields.tags = JSON.parse(fields.tags);
+    for (let prop in fields.tags) {
+      if (fields.tags.hasOwnProperty(prop)) {
+        tags.push(fields.tags[prop]);
+      }
+    }
+
+    newPost.tags = tags;
     newPost.coverUrl = fileName;
 
     newPost.save((err, saved) => {
       if (err) {
+
         res.end(err);
       }
       res.json({ post: saved });

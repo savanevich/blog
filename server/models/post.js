@@ -10,7 +10,8 @@ const postSchema = new Schema({
   coverUrl: { type: 'String', required: true },
   dateAdded: { type: 'Date', default: Date.now, required: true },
   user: { type: 'Object', required: true },
-  viewsCounter: { type: 'Number', default: 0, required: true }
+  viewsCounter: { type: 'Number', default: 0, required: true },
+  tags: [String]
 });
 
 postSchema.plugin(random);

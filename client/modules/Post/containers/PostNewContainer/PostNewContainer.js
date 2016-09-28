@@ -14,6 +14,7 @@ class PostsNewPage extends Component {
     formData.append('title', params.title);
     formData.append('content', params.content);
     formData.append('preview', params.preview);
+    formData.append('tags', JSON.stringify(params.tags.tags));
     formData.append('uploads[]', params.postImage[0], params.postImage[0].name);
 
     this.props.dispatch(createPost(formData));
