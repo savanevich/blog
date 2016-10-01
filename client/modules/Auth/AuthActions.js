@@ -1,5 +1,4 @@
 import callApi from '../Common/Helpers/apiCaller';
-import { browserHistory } from 'react-router';
 import {
   AUTH_USER,
   AUTH_ERROR,
@@ -15,7 +14,6 @@ export function signInUser({ email, password }) {
         dispatch({ type: AUTH_USER });
 
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/');
       })
       .catch(() => {
         dispatch(authError('User with entered information doesn\'t exist'));
@@ -32,7 +30,6 @@ export function signUpUser({ email, username, password }) {
         dispatch({ type: AUTH_USER });
 
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/');
       })
       .catch(function (error) {
         if (error.response) {
@@ -44,7 +41,6 @@ export function signUpUser({ email, username, password }) {
 
 export function signOutUser() {
   localStorage.removeItem('token');
-  browserHistory.push('/');
 
   return {
     type: UNAUTH_USER

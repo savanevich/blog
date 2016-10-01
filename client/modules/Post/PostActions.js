@@ -5,7 +5,8 @@ import {
   FETCH_POSTS,
   FETCH_POST,
   DELETE_POST,
-  CREATE_POST
+  CREATE_POST,
+  ADD_COMMENT
 } from './PostTypes';
 
 export function fetchPosts() {
@@ -50,6 +51,15 @@ export function deletePost(id) {
 
   return {
     type: DELETE_POST,
+    payload: request
+  };
+}
+
+export function addComment(postId, body) {
+  const request = callApi(`posts/${postId}/add-comment`, 'POST', body, true);
+
+  return {
+    type: ADD_COMMENT,
     payload: request
   };
 }

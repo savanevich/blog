@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import axios from 'axios';
 import { Field, reduxForm } from 'redux-form'
+import Paper from 'material-ui/Paper';
 
 import {
   FormInput,
@@ -23,6 +23,7 @@ export class PostCreate extends Component {
     const { handleSubmit, reset } = this.props;
 
     return (
+      <Paper>
         <div className={forms['form-content']}>
           <FormHeading label="Create new post" />
           <Field
@@ -58,6 +59,7 @@ export class PostCreate extends Component {
             actionSubmit={ handleSubmit(this.onSubmitForm.bind(this)) }
             actionCancel={ reset }/>
         </div>
+      </Paper>
     );
   }
 }

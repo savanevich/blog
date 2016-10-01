@@ -1,11 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import Helmet from 'react-helmet';
 import Avatar from 'material-ui/Avatar';
+import Paper from 'material-ui/Paper';
+import ListItem from 'material-ui/List/ListItem';
 var dateFormat = require('dateformat');
 
 import styles from './PostDetail.css';
-import ListItem from 'material-ui/List/ListItem';
 import PostTagsList from './../PostTagsList/PostTagsList';
+import CommentsBlock from './../CommentsBlock/CommentsBlock';
 
 function PostDetail(props) {
 
@@ -13,7 +15,7 @@ function PostDetail(props) {
     return (
       <div>
         <Helmet title={ props.post.title }/>
-        <div className={`${styles['single-post']} ${styles['post-detail']}`}>
+        <Paper className={`${styles['single-post']} ${styles['post-detail']}`}>
           <div>
             <ListItem
               disabled={true}
@@ -32,7 +34,8 @@ function PostDetail(props) {
           <p className={styles['post-preview']}><b>{ props.post.preview }</b></p>
           <p className={styles['post-desc']}>{ props.post.content }</p>
           <PostTagsList tags={props.post.tags} />
-        </div>
+        </Paper>
+        <CommentsBlock comments={props.post.comments} addComment={props.addComment} />
       </div>
     );
   } else {

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import PostDetail from './../../components/PostDetail/PostDetail';
-import { fetchPost } from './../../PostActions';
+import { fetchPost, addComment } from './../../PostActions';
 
 class PostDetailPage extends Component {
 
@@ -11,10 +11,14 @@ class PostDetailPage extends Component {
     this.props.fetchPost(this.props.params.cuid);
   }
 
+  handleAddComment = (props) => {
+    this.props.addComment(this.props.params.cuid, props);
+  };
+
   render() {
 
     return (
-      <PostDetail post={ this.props.post } />
+      <PostDetail post={this.props.post} addComment={this.handleAddComment} />
     );
   }
 }
@@ -26,7 +30,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchPost }, dispatch);
+  return bindActionCreators({ fetchPost, addComment }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetailPage);

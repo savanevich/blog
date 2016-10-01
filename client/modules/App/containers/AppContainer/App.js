@@ -7,14 +7,13 @@ import Helmet from 'react-helmet';
 
 import DevTools from './../../components/DevTools';
 import Header from './../../components/Header/Header';
-import Footer from './../../components/Footer/Footer';
 
-import { signOutUser } from '../../../Auth/AuthActions';
+import { signOutUser, authError } from '../../../Auth/AuthActions';
 
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { isMounted: false };
+    this.state = {isMounted: false};
   }
 
   componentDidMount() {
@@ -43,6 +42,8 @@ export class App extends Component {
           />
         <Header
           signOutUser={this.props.signOutUser}
+          authError={this.props.authError}
+          authenticated={this.props.authenticated}
         />
         <div className={styles.container}>
           {this.props.children}
@@ -56,9 +57,14 @@ App.propTypes = {
   children: PropTypes.object.isRequired
 };
 
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ signOutUser }, dispatch);
+function mapStateToProps(state) {
+  return {
+    authenticated: state.auth.authenticated
+  };
 }
 
-export default connect(null, mapDispatchToProps)(App);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ signOutUser, authError }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

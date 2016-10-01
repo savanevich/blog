@@ -10,5 +10,6 @@ router.route('/posts').get(PostController.getPosts);
 router.route('/posts/:cuid').get(PostController.getPost);
 router.route('/posts').post(requireAuth, PostController.addPost);
 router.route('/posts/:cuid').delete(PostController.deletePost);
+router.route('/posts/:cuid/add-comment').post(requireAuth, PostController.addComment);
 
 export default router;

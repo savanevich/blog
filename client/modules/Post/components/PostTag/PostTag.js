@@ -5,7 +5,7 @@ function PostTag(props) {
 
   return (
     <a href="#" className={styles['tag-link']}>
-      #{props.label}
+      {props.label}
     </a>
   );
 }

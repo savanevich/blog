@@ -12,7 +12,6 @@ import Divider from 'material-ui/Divider';
 
 import SignInContainer from './../../../Auth/containers/SignInContainer/SignInContainer';
 import SignUpContainer from './../../../Auth/containers/SignUpContainer/SignUpContainer';
-import { authError } from './../../../Auth/AuthActions';
 
 import styles from './Header.css';
 
@@ -61,6 +60,11 @@ export class Header extends Component {
     });
   };
 
+  handleSignOut = () => {
+    this.setState({isSignInOpen: false, isSignUpOpen: false});
+    this.props.signOutUser()
+  };
+
   renderLinks() {
     if (this.props.authenticated) {
 
@@ -82,7 +86,7 @@ export class Header extends Component {
               <MenuItem primaryText="Settings" />
               <MenuItem primaryText="Help" />
               <Divider />
-              <MenuItem primaryText="Sign out" onClick={() => this.props.signOutUser()} />
+              <MenuItem primaryText="Sign out" onClick={this.handleSignOut} />
             </IconMenu>
           </li>
         </ul>
@@ -139,14 +143,5 @@ export class Header extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    authenticated: state.auth.authenticated
-  };
-}
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ authError }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

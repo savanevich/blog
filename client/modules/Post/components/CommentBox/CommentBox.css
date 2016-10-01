@@ -1,0 +1,36 @@
+.comment-box {
+  padding: 0 40px 70px 40px;
+  width: 100%;
+  max-width: 700px;
+  margin: 15px auto;
+  font-size: 14px;
+  background-color: white;
+}
+
+.comment-box-header {
+  overflow: hidden;
+  padding-top: 25px;
+  margin-bottom: -15px;
+}
+
+.comment-box-header-avatar {
+  display: inline-block;
+  vertical-align: top;
+  padding-right: 10px;
+  float: left;
+}
+
+.comment-box-header-author-name {
+  color: #00ab6b;
+  font-size: 14px;
+  line-height: 36px;
+  float: left;
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background: #ccc;
+  width: 250px;
+  margin: 32px auto 0;
+}

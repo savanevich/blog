@@ -3,7 +3,8 @@ const _ = require('lodash');
 import {
   FETCH_POSTS,
   FETCH_POST,
-  DELETE_POST
+  DELETE_POST,
+  ADD_COMMENT
 } from './PostTypes';
 
 const initialState = {
@@ -33,6 +34,20 @@ export default function(state = initialState, action) {
       return {
         ...state,
         allPosts: action.payload.data.posts.filter(post => post.cuid !== action.cuid)
+      };
+
+    case ADD_COMMENT:
+
+      // es6 is awesome
+      return {
+        ...state,
+        currentPost: {
+          ...state.currentPost,
+          comments: [
+            action.payload.data.comment,
+            ...state.currentPost.comments
+          ]
+        }
       };
 
     default:

@@ -13,17 +13,17 @@ import path from 'path';
  * @returns void
  */
 export function getPosts(req, res) {
-  Post.find({}, { content: 0 }).sort('-dateAdded').limit(5).exec((err, allPosts) => {
+  Post.find({}, { content: 0, comments: 0 }).sort('-dateAdded').limit(5).exec((err, allPosts) => {
     if (err) {
       res.status(500).send(err);
     }
 
-    Post.find({}, { content: 0, preview: 0 }).sort('-viewsCounter').limit(3).exec((err, popularPosts) => {
+    Post.find({}, { content: 0, preview: 0, comments: 0 }).sort('-viewsCounter').limit(3).exec((err, popularPosts) => {
       if (err) {
         res.status(500).send(err);
       }
 
-      Post.findRandom({}, { content: 0, preview: 0 }, { limit: 3 }, function (err, randomPosts) {
+      Post.findRandom({}, { content: 0, preview: 0, comments: 0 }, { limit: 3 }, function (err, randomPosts) {
         if (err) {
           res.status(500).send(err);
         }
@@ -154,5 +154,43 @@ export function deletePost(req, res) {
     post.remove(() => {
       res.status(200).end();
     });
+  });
+}
+
+
+/**
+ * Add comment to the post
+ *
+ * @param req
+ * @param res
+ * @returns void
+ */
+export function addComment(req, res) {
+  Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+
+    const comment = {};
+
+    comment.cuid = cuid();
+    comment.user = {
+      _id: req.user._id,
+      username: req.user.username,
+      email: req.user.email,
+      avatarUrl: req.user.avatarUrl
+    };
+    comment.body = req.body.body;
+    comment.dateAdded = Date.now();
+
+    post.comments.push(comment);
+    post.save(function(err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+
+      res.json({ comment });
+    });
+
   });
 }

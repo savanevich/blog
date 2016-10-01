@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 function FormField(props) {
 
   const multiLine = !!(props.rows);
-  const rowsNumber = props.rows ? +props.rows : 1;
+  const rowsNumber = (props.rows && props.input) ? +props.rows : 1;
 
   return (
     <div>

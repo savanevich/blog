@@ -11,7 +11,13 @@ const postSchema = new Schema({
   dateAdded: { type: 'Date', default: Date.now, required: true },
   user: { type: 'Object', required: true },
   viewsCounter: { type: 'Number', default: 0, required: true },
-  tags: [String]
+  tags: [String],
+  comments: [{
+      cuid: { type: 'String', required: true },
+      user: { type: 'Object', required: true },
+      dateAdded: { type: 'Date', default: Date.now, required: true },
+      body: { type: 'String', required: true }
+  }]
 });
 
 postSchema.plugin(random);

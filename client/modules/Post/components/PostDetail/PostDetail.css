@@ -1,8 +1,9 @@
 .single-post {
-  margin: 20px auto;
-  padding: 15px;
+  margin: 0 auto;
+  padding: 15px 95px;
   border-radius: 2px;
-  width: 80%;
+  width: 100%;
+  background-color: white;
 }
 
 .post-title {
