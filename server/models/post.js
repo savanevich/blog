@@ -17,7 +17,13 @@ const postSchema = new Schema({
       user: { type: 'Object', required: true },
       dateAdded: { type: 'Date', default: Date.now, required: true },
       body: { type: 'String', required: true }
-  }]
+  }],
+  commentsCount: Number
+});
+
+postSchema.pre('validate', function (next) {
+  this.commentsCount = this.comments.length;
+  next();
 });
 
 postSchema.plugin(random);

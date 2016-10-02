@@ -11,6 +11,10 @@ class PostDetailPage extends Component {
     this.props.fetchPost(this.props.params.cuid);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   handleAddComment = (props) => {
     this.props.addComment(this.props.params.cuid, props);
   };

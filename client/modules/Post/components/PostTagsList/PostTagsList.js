@@ -8,9 +8,7 @@ function PostTagsList(props) {
       margin: 4
     },
     wrapper: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      paddingTop: '30px'
+      margin: 'left'
     },
     label: {
       fontWeight: 'bold'

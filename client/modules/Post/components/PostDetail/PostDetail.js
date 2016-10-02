@@ -6,8 +6,8 @@ import ListItem from 'material-ui/List/ListItem';
 var dateFormat = require('dateformat');
 
 import styles from './PostDetail.css';
-import PostTagsList from './../PostTagsList/PostTagsList';
 import CommentsBlock from './../CommentsBlock/CommentsBlock';
+import PostListItemFooter from './../PostListItemFooter/PostListItemFooter';
 
 function PostDetail(props) {
 
@@ -33,7 +33,7 @@ function PostDetail(props) {
           <h3 className={styles['post-title']}>{ props.post.title }</h3>
           <p className={styles['post-preview']}><b>{ props.post.preview }</b></p>
           <p className={styles['post-desc']}>{ props.post.content }</p>
-          <PostTagsList tags={props.post.tags} />
+          <PostListItemFooter commentsCount={props.post.comments.length} tags={props.post.tags} viewsCount={props.post.viewsCounter} />
         </Paper>
         <CommentsBlock comments={props.post.comments} addComment={props.addComment} />
       </div>

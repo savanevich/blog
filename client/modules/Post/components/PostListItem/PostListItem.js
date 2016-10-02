@@ -4,7 +4,7 @@ var dateFormat = require('dateformat');
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
-import PostTagsList from './../PostTagsList/PostTagsList';
+import PostListItemFooter from './../PostListItemFooter/PostListItemFooter';
 import styles from './PostListItem.css';
 
 const inlStyles = {
@@ -43,7 +43,7 @@ export class PostListItem extends Component {
           </Link>
           <CardText style={inlStyles.preview}>
             { this.props.post.preview }
-            <PostTagsList tags={this.props.post.tags} />
+            <PostListItemFooter commentsCount={this.props.post.commentsCount} tags={this.props.post.tags} viewsCount={this.props.post.viewsCounter}  />
           </CardText>
         </Card>
         <hr className={styles.divider}/>
